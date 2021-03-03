@@ -1,0 +1,19 @@
+<!--  app/views/movies/show.html.erb -->
+<h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
+
+<ul id="details">
+  <li>
+    Date/time:
+    <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
+  </li>
+  <li>
+    Zoom info:
+    <a href=<%= @oh.zoom_info %>><%= @oh.zoom_info %></a>
+  </li>
+</ul>
+
+<div class="row">
+  <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-2' %>
+  <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
+  <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-2' %>
+</div>

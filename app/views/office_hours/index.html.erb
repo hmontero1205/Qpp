@@ -1,0 +1,25 @@
+<h2>All Office Hours</h2>
+
+<table class="table table-striped col-md-12" id="office_hours">
+  <thead>
+    <tr>
+      <th>Host</th>
+      <th>Class Name</th>
+      <th>When</th>
+      <th>More Info</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ohs.each do |oh| %>
+      <tr>
+        <td><%= oh.host %></td>
+        <td><%= oh.class_name %></td>
+        <td><%= oh.time %></td>
+        <td>
+          <%= link_to "See more", office_hour_path(oh) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Add new OH', new_office_hour_path, :class => 'btn btn-primary' %>
