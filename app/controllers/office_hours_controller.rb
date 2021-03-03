@@ -6,6 +6,9 @@ class OfficeHoursController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @oh = OfficeHour.find(id) # look up movie by unique ID
+    if Time.now() < @oh.time
+      flash[:notice] = "This OH hasn't started yet"
+    end
   end
 
   def destroy
