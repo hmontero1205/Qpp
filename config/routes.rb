@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :office_hours
   mount ActionCable.server => '/cable'
-  root :to => redirect('/office_hours/index')
+  root :to => redirect('/office_hours')
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
