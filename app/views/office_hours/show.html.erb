@@ -12,6 +12,17 @@
   </li>
 </ul>
 
+<div id="queue_entries">
+  <%= render @queue_entries %>
+</div>
+
+<div>
+  <label>Enqueue yourself!</label><br/>
+  <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue">
+  <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
+  <button id="enqueue-btn" class="btn btn-primary">Submit</button>
+</div>
+
 <div class="row">
   <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-2' %>
   <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>

@@ -1,10 +1,10 @@
 class CreateOfficeHours < ActiveRecord::Migration
   def change
     create_table :office_hours do |t|
-      t.string :host
-      t.string :class
+      t.text :host
+      t.text :class
       t.datetime :time
-      t.string :zoom_info
+      t.text :zoom_info
 
       t.timestamps null: false
     end

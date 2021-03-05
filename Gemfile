@@ -6,6 +6,11 @@ ruby '>= 2.6.6', '< 2.7.0'
 # gem 'rails', '4.2.10'
 gem 'rails', '>= 5.0.0', '< 5.1'
 
+gem 'puma'
+gem 'em-hiredis'
+# gem 'redis'
+gem 'redis', '~> 3.0'
+
 gem 'pg', '~> 0.18'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

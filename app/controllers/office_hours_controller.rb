@@ -9,6 +9,7 @@ class OfficeHoursController < ApplicationController
     if Time.now() < @oh.time
       flash[:notice] = "This OH hasn't started yet"
     end
+    @queue_entries = []
   end
 
   def destroy
