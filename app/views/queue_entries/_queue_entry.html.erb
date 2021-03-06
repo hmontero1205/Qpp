@@ -1,4 +1,9 @@
-<div class="queue_entry">
-  <div>Name: <%= queue_entry.student %></div>
-  <div>Description: <%= queue_entry.description %></div>
+<div class="card border-info queue_entry" style="width: 18rem;" start_time="<%= queue_entry.created_at %>">
+  <div class="card-header bg-dark" style="color: white">
+    <%= queue_entry.student %>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"></li>
+    <li class="list-group-item"><%= queue_entry.description %></li>
+  </ul>
 </div>

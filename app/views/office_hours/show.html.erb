@@ -1,4 +1,5 @@
 <!--  app/views/movies/show.html.erb -->
+
 <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
 
 <ul id="details">
@@ -12,7 +13,7 @@
   </li>
 </ul>
 
-<div id="queue_entries">
+<div id="queue_entries" style="height: 20rem; width:20rem; overflow: auto">
   <%= render @queue_entries %>
 </div>
 
@@ -20,6 +21,7 @@
   <label>Enqueue yourself!</label><br/>
   <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue">
   <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
+  <input id="oh-input" type="hidden" value=<%= @oh.id %> />
   <button id="enqueue-btn" class="btn btn-primary">Submit</button>
 </div>
 
