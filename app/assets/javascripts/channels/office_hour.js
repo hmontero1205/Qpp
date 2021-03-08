@@ -30,8 +30,12 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
     qeBox.append(newCard)
   },
 
-  speak: function(ohID, name, desc) {
-    return this.perform('speak', {"ohID": ohID, "name": name, "desc": desc});
+  speak: function(op, ohID, name, desc) {
+    if (op == "enqueue") {
+      return this.perform('speak', {"op": op, "ohID": ohID, "name": name, "desc": desc});
+    } else {
+      console.log("Unimplemented")
+    }
   }
 });
 
@@ -40,7 +44,7 @@ $(document).ready(function() {
     nameInput = $("#name-input")
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
-    App.oh.speak(ohInput.val(), nameInput.val(), descInput.val())
+    App.oh.speak("enqueue", ohInput.val(), nameInput.val(), descInput.val())
     nameInput.val("")
     descInput.val("")
   });
