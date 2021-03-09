@@ -17,22 +17,33 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
     qeBox = $("#queue_entries")
-    newCard = $($.parseHTML(cardTemplate)[0])
-    newCard.attr("start_time", data['start_time'])
-    seconds = (new Date() - new Date(data['start_time'])) / 1000;
-    min = Math.floor(seconds/60);
-    sec = Math.floor(seconds % 60);
+    if (data["op"] == "enqueue") {
+      newCard = $($.parseHTML(cardTemplate)[0])
+      newCard.attr("start_time", data['start_time'])
+      seconds = (new Date() - new Date(data['start_time'])) / 1000;
+      min = Math.floor(seconds/60);
+      sec = Math.floor(seconds % 60);
 
-    $(newCard.children()[0]).html(data['name'])
-    $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
-    $($(newCard.children()[1]).children()[1]).html(data['desc'])
+      $(newCard.children()[0]).html(data['name'])
+      $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
+      $($(newCard.children()[1]).children()[1]).html(data['desc'])
 
-    qeBox.append(newCard)
+      qeBox.append(newCard)
+    } else if (data["op"] == "dequeue") {
+      queueEntry = $("#qe-"+data["qeID"])
+      if (queueEntry.length != 0) {
+        $(queueEntry).remove()
+      }
+    } else {
+      // Unimplemented
+    }
   },
 
-  speak: function(op, ohID, name, desc) {
+  speak: function(op, args) {
     if (op == "enqueue") {
-      return this.perform('speak', {"op": op, "ohID": ohID, "name": name, "desc": desc});
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"]});
+    } else if (op == "dequeue") {
+      return this.perform('speak', {"op": op, "qeID": args["qeID"]})
     } else {
       console.log("Unimplemented")
     }
@@ -44,14 +55,14 @@ $(document).ready(function() {
     nameInput = $("#name-input")
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
-    App.oh.speak("enqueue", ohInput.val(), nameInput.val(), descInput.val())
+    App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
     nameInput.val("")
     descInput.val("")
   });
 
   setInterval(function() {
     qeBox = $("#queue_entries")
-    qeBox.children().each( function () {
+    qeBox.children().each(function () {
       startTime = $(this).attr("start_time")
       seconds = (new Date() - new Date(startTime)) / 1000;
       min = Math.floor(seconds/60);
@@ -60,6 +71,13 @@ $(document).ready(function() {
       $($($(this).children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
 
     });
-  }, 500)
+  }, 500);
+
+  $(".qe-btn").each(function () {
+    $(this).click(function() {
+      card = $($($(this).parent()[0]).parent()[0])[0]
+        App.oh.speak("dequeue", {"qeID": parseInt($(card).attr("id").split("-")[1])})
+    })
+  });
 });
 
