@@ -4,7 +4,8 @@
   <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control' %>
   <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control' %>
   <%= datetime_local_field :office_hour, :time, :class => 'col-form-control'  %>
-  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom info", :class => 'col-form-control' %>
+  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control' %>
+  <%= hidden_field :office_hour, :email, value: current_user.email %>
   <br/>
   <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
   <%= link_to 'Cancel', office_hours_path, :class => 'btn btn-secondary' %>

@@ -1,4 +1,5 @@
 class OfficeHoursController < ApplicationController
+
   def index
     @ohs = OfficeHour.all
   end
@@ -25,12 +26,17 @@ class OfficeHoursController < ApplicationController
   end
 
   def new
+    if !user_signed_in?
+      flash[:notice] = "You need to be signed in to do this!"
+      redirect_to new_user_session_path
+    end
+
   end
 
   private
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def office_hour_params
-    params.require(:office_hour).permit(:host, :class_name, :time, :zoom_info)
+    params.require(:office_hour).permit(:host, :class_name, :time, :zoom_info, :email)
   end
 end
