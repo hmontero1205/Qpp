@@ -24,7 +24,14 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       min = Math.floor(seconds/60);
       sec = Math.floor(seconds % 60);
 
-      $(newCard.children()[0]).html(data['name'])
+      nameSpan = $("<span />").html(data['name'])
+      xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'float: right; padding: 5px 10px; margin: -5px;').html("X")
+      xButton.click(function() {
+        App.oh.speak("dequeue", {"qeID": data["qe_id"]})
+      });
+      $(newCard).attr("id", "qe-"+data["qe_id"])
+      $(newCard.children()[0]).html(nameSpan)
+      $(newCard.children()[0]).append(xButton)
       $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
       $($(newCard.children()[1]).children()[1]).html(data['desc'])
 
