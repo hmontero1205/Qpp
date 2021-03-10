@@ -16,7 +16,12 @@ class OfficeHoursController < ApplicationController
   end
 
   def create
-    @oh = OfficeHour.create!(office_hour_params)
+    @oh = OfficeHour.create(office_hour_params)
+    if @oh.invalid?
+      flash[:notice] = @oh.errors.full_messages.join('. ')
+      render :new
+      return
+    end
     flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully created."
     redirect_to office_hours_path
   end
@@ -25,6 +30,7 @@ class OfficeHoursController < ApplicationController
   end
 
   def new
+    @oh = OfficeHour.new()
   end
 
   private
