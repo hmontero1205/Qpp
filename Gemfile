@@ -2,22 +2,23 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-ruby '>= 2.6.6', '< 2.7.0'
+ruby '~> 2.7'
 # gem 'rails', '4.2.10'
-gem 'rails', '>= 5.0.0', '< 5.1'
+gem 'rails', '>= 6.1.3', '< 7.0'
 
 gem 'puma'
 gem 'em-hiredis'
 # gem 'redis'
 gem 'redis', '~> 3.0'
 
-gem 'pg', '~> 0.18'
+gem 'pg', '~> 1.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails', '~> 6.0'
+# Use Terser as compressor for JavaScript assets
+gem 'terser', '>= 1.1'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+# TODO(etm): Do we really want to use coffee script?
+gem 'coffee-rails', '~> 4.2.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -28,7 +29,7 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', '~> 1.1', group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -46,7 +47,8 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '~> 4.0'
+  gem 'listen'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
