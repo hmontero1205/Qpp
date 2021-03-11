@@ -18,11 +18,13 @@
 </div>
 
 <div>
+  <form>
   <label>Enqueue yourself!</label><br/>
-  <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue">
+  <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
   <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
   <input id="oh-input" type="hidden" value=<%= @oh.id %> />
   <button id="enqueue-btn" class="btn btn-primary">Submit</button>
+  </form>
 </div>
 
 <div class="row">
