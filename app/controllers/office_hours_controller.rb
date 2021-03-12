@@ -7,8 +7,12 @@ class OfficeHoursController < ApplicationController
   def show
     id = params[:id] # retrieve movie ID from URI route
     @oh = OfficeHour.find(id) # look up movie by unique ID
-    if Time.now() < @oh.time
-      flash[:notice] = "This OH hasn't started yet"
+
+    # curr time between oh time and an hour after
+    # more flexible for repeated meetings?
+    # should probs get length from user? must discuss
+    if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
+      flash.now[:notice] = "This OH is not currently active"
     end
     @queue_entries = QueueEntry.all
   end

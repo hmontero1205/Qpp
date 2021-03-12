@@ -8,6 +8,7 @@
   <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control'%>
   <%= hidden_field :office_hour, :email, value: current_user.email %>
   <br/>
+  <br/>
   <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
   <%= link_to 'Cancel', office_hours_path(@oh), :class => 'btn btn-secondary' %>
 <% end %>

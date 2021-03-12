@@ -2,7 +2,7 @@
 
 <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
 
-<ul id="details">
+<ul id="details" style="margin-bottom: 0em;">
   <li>
     Date/time:
     <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
@@ -13,26 +13,30 @@
   </li>
 </ul>
 
-<div id="queue_entries" style="height: 20rem; width:20rem; overflow: auto">
-  <%= render @queue_entries %>
+<div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
+  <% @queue_entries.each do |quentry| %>
+    <div style="padding: .25em;">
+      <%= render quentry %>
+    </div>
+  <% end %>
 </div>
 
-<div>
+<div style="background-color: #bfbfbf; padding: .25em; width: max-content; border-radius: 5px;">
   <label>Enqueue yourself!</label><br/>
   <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue">
   <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
   <input id="oh-input" type="hidden" value=<%= @oh.id %> />
-  <button id="enqueue-btn" class="btn btn-primary">Submit</button>
+  <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
 </div>
 
 <% if user_signed_in? and current_user.email == @oh.email %>
-  <div class="row">
+  <div class="row" style="margin-top: 1em; display: block;">
     <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-2' %>
     <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
     <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-2' %>
   </div>
 <% else %>
-  <div class="row">
+  <div class="row" style="margin-top: 1em;">
     <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-2' %>
   </div>
 <% end %>
