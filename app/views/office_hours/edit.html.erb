@@ -1,12 +1,13 @@
-<h2>Edit Existing Movie</h2>
-<%= form_tag movie_path(@movie), :method => :put do %>
-  <%= label :movie, :title, 'Title', :class => 'col-form-label' %>
-  <%= text_field :movie, 'title', :class => 'form-control' %>
-  <%= label :movie, :rating, 'Rating', :class => 'col-form-label'  %>
-  <%= select :movie, :rating, ['G','PG','PG-13','R','NC-17'], {}, {:class => 'form-control col-1'} %>
-  <%= label :movie, :release_date, 'Released On', :class => 'col-form-label'  %>
-  <%= date_select :movie, :release_date, {}, :class => 'form-control col-2 d-inline' %>
+<h2>Edit OH</h2>
+
+<%= form_tag office_hour_path(@oh), :method => :put do %>
+  <!-- If we want the edit form prefilled with database values, we need javascript apparently -->
+  <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control' %>
+  <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control' %>
+  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control' %>
+  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control'%>
+  <%= hidden_field :office_hour, :email, value: current_user.email %>
   <br/>
-  <%= submit_tag 'Update Movie Info', :class => 'btn btn-primary' %>
-  <%= link_to 'Cancel', movies_path, :class => 'btn btn-secondary' %>
+  <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', office_hours_path(@oh), :class => 'btn btn-secondary' %>
 <% end %>

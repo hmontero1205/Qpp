@@ -14,6 +14,10 @@ class OfficeHoursController < ApplicationController
   end
 
   def destroy
+    @oh = OfficeHour.find(params[:id])
+    @oh.destroy
+    flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully deleted."
+    redirect_to office_hours_path
   end
 
   def create
@@ -22,7 +26,15 @@ class OfficeHoursController < ApplicationController
     redirect_to office_hours_path
   end
 
+  def edit
+    @oh = OfficeHour.find(params[:id])
+  end
+
   def update
+    @oh = OfficeHour.find(params[:id])
+    @oh.update_attributes!(office_hour_params)
+    flash[:notice] = "#{@oh.host}'s OH was successfully updated."
+    redirect_to office_hour_path(@oh)
   end
 
   def new
