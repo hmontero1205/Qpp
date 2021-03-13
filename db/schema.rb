@@ -16,10 +16,10 @@ ActiveRecord::Schema.define(version: 20210309025931) do
   enable_extension "plpgsql"
 
   create_table "office_hours", force: :cascade do |t|
-    t.text     "host"
-    t.text     "class_name"
+    t.string   "host"
+    t.string   "class_name"
     t.datetime "time"
-    t.text     "zoom_info"
+    t.string   "zoom_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "email"

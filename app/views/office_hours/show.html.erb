@@ -15,9 +15,7 @@
 
 <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
   <% @queue_entries.each do |quentry| %>
-    <div style="padding: .25em;">
-      <%= render quentry %>
-    </div>
+    <%= render quentry %>
   <% end %>
 </div>
 
