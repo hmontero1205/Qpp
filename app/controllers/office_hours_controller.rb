@@ -14,7 +14,7 @@ class OfficeHoursController < ApplicationController
     if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
       flash.now[:notice] = "This OH is not currently active"
     end
-    @queue_entries = QueueEntry.where({"oh_id": id})
+    @queue_entries = QueueEntry.where({"oh_id": id}).order(start_time: :asc)
   end
 
   def destroy
