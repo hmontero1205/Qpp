@@ -31,7 +31,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       nameSpan = $("<span />").html(data['name'])
       xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'float: right; padding: 5px 10px; margin: -5px;').html("X")
       xButton.click(function() {
-        App.oh.speak("dequeue", {"qeID": data["qe_id"]})
+        App.oh.speak("dequeue", {"ohID": ohID, "qeID": data["qe_id"]})
       });
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
@@ -67,8 +67,8 @@ $(document).ready(function() {
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
-    nameInput.reset()
-    descInput.reset()
+    nameInput.val("")
+    descInput.val("")
   });
 
   setInterval(function() {
