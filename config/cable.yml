@@ -6,4 +6,4 @@ development:
   adapter: async
 
 test:
-  adapter: async
+  adapter: test
