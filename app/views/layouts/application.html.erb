@@ -12,7 +12,7 @@
   <body>
     <%# These classes come from the Bootstrap CSS framework. %>
     <nav class="navbar navbar-expand-lg bg-primary text-white mb-3">
-      <h1 class="title">Q++; Office hours done right.</h1>
+    <h1 class="title"><%= link_to "Q++; Office hours done right.", office_hours_path, :class => "qpp-title" %></h1>
       <p class="navbar-text" style="margin-left: auto; margin-bottom: auto;">
       <% if user_signed_in? %>
         Logged in as <strong><%= current_user.email %></strong>.

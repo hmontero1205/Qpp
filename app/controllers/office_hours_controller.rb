@@ -14,7 +14,7 @@ class OfficeHoursController < ApplicationController
     if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
       flash.now[:notice] = "This OH is not currently active"
     end
-    @queue_entries = QueueEntry.all
+    @queue_entries = QueueEntry.where({"oh_id": id}).order(start_time: :asc)
   end
 
   def destroy
@@ -41,7 +41,7 @@ class OfficeHoursController < ApplicationController
 
   def update
     @oh = OfficeHour.find(params[:id])
-    @oh.update_attributes!(office_hour_params)
+    @oh.update(office_hour_params)
     flash[:notice] = "#{@oh.host}'s OH was successfully updated."
     redirect_to office_hour_path(@oh)
   end

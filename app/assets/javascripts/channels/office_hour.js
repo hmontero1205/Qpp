@@ -16,6 +16,10 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
+    ohID = $("#oh-input").val()  
+    if (data["ohID"] != ohID) {
+      return
+    }
     qeBox = $("#queue_entries")
     if (data["op"] == "enqueue") {
       newCard = $($.parseHTML(cardTemplate)[0])
@@ -27,7 +31,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       nameSpan = $("<span />").html(data['name'])
       xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'float: right; padding: 5px 10px; margin: -5px;').html("X")
       xButton.click(function() {
-        App.oh.speak("dequeue", {"qeID": data["qe_id"]})
+        App.oh.speak("dequeue", {"ohID": ohID, "qeID": data["qe_id"]})
       });
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
@@ -50,7 +54,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
     if (op == "enqueue") {
       return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"]});
     } else if (op == "dequeue") {
-      return this.perform('speak', {"op": op, "qeID": args["qeID"]})
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"]})
     } else {
       console.log("Unimplemented")
     }
@@ -60,6 +64,14 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 $(document).ready(function() {
   $("#enqueue-btn").click(function() {
     nameInput = $("#name-input")
+    if (!nameInput[0].checkValidity()) {
+      $(nameInput).attr("style", "border: 2px solid red;")
+      $("#error-box").html("Name field is required!")
+      return
+    } else {
+      $(nameInput).attr("style", "border: none;")
+      $("#error-box").html("")
+    }
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
@@ -83,7 +95,8 @@ $(document).ready(function() {
   $(".qe-btn").each(function () {
     $(this).click(function() {
       card = $($($(this).parent()[0]).parent()[0])[0]
-        App.oh.speak("dequeue", {"qeID": parseInt($(card).attr("id").split("-")[1])})
+      ohID = $("#oh-input").val()  
+      App.oh.speak("dequeue", {"ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
 });
