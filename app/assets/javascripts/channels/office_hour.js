@@ -64,6 +64,14 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 $(document).ready(function() {
   $("#enqueue-btn").click(function() {
     nameInput = $("#name-input")
+    if (!nameInput[0].checkValidity()) {
+      $(nameInput).attr("style", "border: 2px solid red;")
+      $("#error-box").html("Name field is required!")
+      return
+    } else {
+      $(nameInput).attr("style", "border: none;")
+      $("#error-box").html("")
+    }
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
