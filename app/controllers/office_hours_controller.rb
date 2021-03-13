@@ -41,7 +41,7 @@ class OfficeHoursController < ApplicationController
 
   def update
     @oh = OfficeHour.find(params[:id])
-    @oh.update_attributes!(office_hour_params)
+    @oh.update(office_hour_params)
     flash[:notice] = "#{@oh.host}'s OH was successfully updated."
     redirect_to office_hour_path(@oh)
   end
