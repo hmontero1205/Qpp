@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+.qpp-title {
+    color: white;
+    text-decoration: none;
+}
+
+.qpp-title:hover, .qpp-title:active, .qpp-tile:link {
+    color:white;
+    text-decoration: none;
+}
