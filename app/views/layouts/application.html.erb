@@ -13,6 +13,16 @@
     <%# These classes come from the Bootstrap CSS framework. %>
     <nav class="navbar navbar-expand-lg bg-primary text-white mb-3">
       <h1 class="title">Q++; Office hours done right.</h1>
+      <p class="navbar-text" style="margin-left: auto; margin-bottom: auto;">
+      <% if user_signed_in? %>
+        Logged in as <strong><%= current_user.email %></strong>.
+        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'btn btn-primary' %> |
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-primary'   %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary'  %> |
+        <%= link_to "Login", new_user_session_path, :class => 'btn btn-primary'  %>
+      <% end %>
+      </p>
     </nav>
     <div class="container">
       <%# Render "flash" messages in our application. This loads _flash.erb %>

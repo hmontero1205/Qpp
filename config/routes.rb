@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :office_hours
   mount ActionCable.server => '/cable'
   root :to => redirect('/office_hours')
