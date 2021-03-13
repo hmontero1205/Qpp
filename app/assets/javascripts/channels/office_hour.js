@@ -16,6 +16,10 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
+    ohID = $("#oh-input").val()  
+    if (data["ohID"] != ohID) {
+      return
+    }
     qeBox = $("#queue_entries")
     if (data["op"] == "enqueue") {
       newCard = $($.parseHTML(cardTemplate)[0])
@@ -50,7 +54,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
     if (op == "enqueue") {
       return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"]});
     } else if (op == "dequeue") {
-      return this.perform('speak', {"op": op, "qeID": args["qeID"]})
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"]})
     } else {
       console.log("Unimplemented")
     }
@@ -63,8 +67,8 @@ $(document).ready(function() {
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
-    nameInput.val("")
-    descInput.val("")
+    nameInput.reset()
+    descInput.reset()
   });
 
   setInterval(function() {
@@ -83,7 +87,8 @@ $(document).ready(function() {
   $(".qe-btn").each(function () {
     $(this).click(function() {
       card = $($($(this).parent()[0]).parent()[0])[0]
-        App.oh.speak("dequeue", {"qeID": parseInt($(card).attr("id").split("-")[1])})
+      ohID = $("#oh-input").val()  
+      App.oh.speak("dequeue", {"ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
 });
