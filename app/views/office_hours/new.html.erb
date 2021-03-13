@@ -1,12 +1,16 @@
 <h2>Create OH</h2>
 
 <%= form_tag office_hours_path, :class => 'form' do %>
-  <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control' %>
-  <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control' %>
-  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control'  %>
-  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control' %>
+  <%# TODO(etm): Host name field should be automatic based on the user that's logged in %>
+  <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control',
+                 :value => @oh.host, :required => true %>
+  <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control',
+                 :value => @oh.class_name, :required => true %>
+  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control',
+                           :value => if @oh.time then @oh.time.strftime('%Y-%m-%dT%H:%M') end, :required => true  %>
+  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control',
+                 :value => @oh.zoom_info, :required => true %>
   <%= hidden_field :office_hour, :email, value: current_user.email %>
-  <br/>
   <br/>
   <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
   <%= link_to 'Cancel', office_hours_path, :class => 'btn btn-secondary' %>
