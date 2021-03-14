@@ -22,4 +22,6 @@
     <% end %>
   </tbody>
 </table>
+<% if user_signed_in? %>
 <%= link_to 'Add new OH', new_office_hour_path, :class => 'btn btn-primary' %>
+<% end %>

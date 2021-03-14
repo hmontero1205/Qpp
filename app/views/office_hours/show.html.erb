@@ -28,7 +28,7 @@
   <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
 </div>
 
-<% if user_signed_in? and current_user.email == @oh.email %>
+<% if user_signed_in? and current_user == @oh.user %>
   <div class="row" style="margin-top: 1em; display: block;">
     <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-2' %>
     <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>

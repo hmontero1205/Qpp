@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :office_hours
+
+  authenticate :user do
+    resources :office_hours, only: [:new, :create, :update, :edit, :destroy]
+  end
+
+  resources :office_hours, only: [:index, :show]
   mount ActionCable.server => '/cable'
   root :to => redirect('/office_hours')
   # The priority is based upon order of creation: first created -> highest priority.

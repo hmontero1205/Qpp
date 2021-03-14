@@ -10,7 +10,6 @@
     :value => if @oh.time then @oh.time.strftime('%Y-%m-%dT%H:%M') end, :required => true, :placeholder => "YYYY-MM-DD HH:MM PM/AM" %>
   <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control',
                  :value => @oh.zoom_info, :required => true %>
-  <%= hidden_field :office_hour, :email, value: current_user.email %>
   <br/>
   <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
   <%= link_to 'Cancel', office_hours_path, :class => 'btn btn-secondary' %>
