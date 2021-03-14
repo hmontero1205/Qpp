@@ -15,6 +15,8 @@ class OfficeHourChannel < ApplicationCable::Channel
     elsif data["op"] == "dequeue"
       QueueEntry.destroy(data["qeID"])
       ActionCable.server.broadcast "office_hour_channel", "ohID": data["ohID"], op: "dequeue", qeID: data["qeID"]
+    elsif data["op"] == "refresh"
+      ActionCable.server.broadcast "office_hour_channel", op: "refresh"
     else
       # Unimplemented
     end

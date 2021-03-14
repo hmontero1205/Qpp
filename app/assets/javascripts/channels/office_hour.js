@@ -4,7 +4,6 @@ function str_pad_left(string, pad, length) {
   return (new Array(length+1).join(pad)+string).slice(-length);
 }
 
-
 App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
   connected: function() {
     // Called when the subscription is ready for use on the server
@@ -16,11 +15,17 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 
   received: function(data) {
     // Called when there's incoming data on the websocket for this channel
+
+    if (data["op"] == "refresh") {
+      window.location.reload(false)
+    }
+
     ohID = $("#oh-input").val()  
     if (data["ohID"] != ohID) {
       return
     }
     qeBox = $("#queue_entries")
+  
     if (data["op"] == "enqueue") {
       newCard = $($.parseHTML(cardTemplate)[0])
       newCard.attr("start_time", data['start_time'])
@@ -45,11 +50,6 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       if (queueEntry.length != 0) {
         $(queueEntry).remove()
       }
-
-    } else if (data["op"] == "refresh") {
-      console.log("bye")
-      window.location.reload(true)
-      console.log("bye")
 
     } else {
       // Unimplemented
@@ -107,10 +107,7 @@ $(document).ready(function() {
       App.oh.speak("dequeue", {"ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
-
-  // $("#activate-btn").click(function() {
-  //   console.log("hi")
-  //   App.oh.speak("refresh", {});
-  // });
 });
+
+
 

@@ -56,7 +56,10 @@ class OfficeHoursController < ApplicationController
     @oh = OfficeHour.find(params[:id])
     @oh.active = true
     @oh.save
-    redirect_to office_hour_path(@oh)
+
+    respond_to do |format|
+      format.js {render inline: "App.oh.speak(\"refresh\", {});" }
+    end
   end
 
   def deactivate
@@ -67,7 +70,10 @@ class OfficeHoursController < ApplicationController
     end
     @oh.active = false
     @oh.save
-    redirect_to office_hour_path(@oh)
+
+    respond_to do |format|
+      format.js {render inline: "App.oh.speak(\"refresh\", {});" }
+    end
   end
 
   private
