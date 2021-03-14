@@ -7,4 +7,5 @@ class OfficeHour < ActiveRecord::Base
   validates :zoom_info, presence: true, allow_blank: false
 
   belongs_to :user
+  has_many :queue_entries, -> {order("start_time asc")}
 end

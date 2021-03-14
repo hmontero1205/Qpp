@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :office_hours
-  has_many :queue_entries
+  has_many :queue_entry
 end
