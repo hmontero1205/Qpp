@@ -21,13 +21,12 @@
   </div>
 
   <div style="background-color: #bfbfbf; padding: .25em; width: max-content; border-radius: 5px;">
-    <form>
     <label>Enqueue yourself!</label><br/>
+    <div id="error-box" style="color: red"></div>
     <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
     <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
     <input id="oh-input" type="hidden" value=<%= @oh.id %> />
     <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
-    </form>
   </div>
 <% end %>
 

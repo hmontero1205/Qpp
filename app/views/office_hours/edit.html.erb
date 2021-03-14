@@ -4,7 +4,7 @@
   <!-- If we want the edit form prefilled with database values, we need javascript apparently -->
   <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control' %>
   <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control' %>
-  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control' %>
+  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control', :placeholder => "YYYY-MM-DD HH:MM PM/AM" %>
   <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control'%>
   <%= hidden_field :office_hour, :email, value: current_user.email %>
   <%= hidden_field :office_hour, :active, value: true %>
