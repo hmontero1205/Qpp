@@ -19,3 +19,6 @@
 # Misc dev stuff
 .idea
 .ruby-version
+
+# codecov
+/coverage
