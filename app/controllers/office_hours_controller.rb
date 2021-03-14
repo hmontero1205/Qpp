@@ -1,3 +1,6 @@
+# All routes except :index and :show require authentication beforehand
+# See routes.rb for details
+
 class OfficeHoursController < ApplicationController
 
   def index
@@ -14,45 +17,60 @@ class OfficeHoursController < ApplicationController
     if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
       flash.now[:notice] = "This OH is not currently active"
     end
-    @queue_entries = QueueEntry.where({"oh_id": id}).order(start_time: :asc)
+    @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 
   def destroy
     @oh = OfficeHour.find(params[:id])
+    # TODO(etm): It seems like we can abstract this pattern into a function, but when I tried
+    #   I couldn't use redirect_to
+    if @oh.user != current_user
+      flash[:notice] = "You cannot delete this OH since you did not create it."
+      redirect_to office_hours_path
+      return
+    end
+    
     @oh.destroy
     flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully deleted."
     redirect_to office_hours_path
   end
 
   def create
-    @oh = OfficeHour.create(office_hour_params)
+    @oh = current_user.office_hours.create(office_hour_params)
     if @oh.invalid?
       flash[:notice] = @oh.errors.full_messages.join('. ')
       render :new
       return
     end
+
     flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully created."
     redirect_to office_hours_path
   end
 
   def edit
     @oh = OfficeHour.find(params[:id])
+    if @oh.user != current_user
+      flash[:notice] = "You cannot edit this OH since you did not create it."
+      redirect_to office_hours_path
+    end
   end
 
   def update
     @oh = OfficeHour.find(params[:id])
+    if @oh.user != current_user
+      flash[:notice] = "You cannot edit this OH since you did not create it."
+      redirect_to office_hours_path
+      return
+    end
+
     @oh.update(office_hour_params)
     flash[:notice] = "#{@oh.host}'s OH was successfully updated."
     redirect_to office_hour_path(@oh)
   end
 
   def new
+    # Empty object so the template renders properly
     @oh = OfficeHour.new
-    if !user_signed_in?
-      flash[:notice] = "You need to be signed in to do this!"
-      redirect_to new_user_session_path
-    end
-
   end
 
   private

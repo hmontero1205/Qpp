@@ -1,4 +1,4 @@
-class CreateOfficeHours < ActiveRecord::Migration
+class CreateOfficeHours < ActiveRecord::Migration[5.0]
   def change
     create_table :office_hours do |t|
       t.text :host

@@ -5,4 +5,7 @@ class OfficeHour < ActiveRecord::Base
   # date picker only submits valid dates.
   validates :time, presence: true, allow_blank: false
   validates :zoom_info, presence: true, allow_blank: false
+
+  belongs_to :user
+  has_many :queue_entries, -> {order("start_time asc")}
 end
