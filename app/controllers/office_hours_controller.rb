@@ -8,10 +8,8 @@ class OfficeHoursController < ApplicationController
     id = params[:id] # retrieve movie ID from URI route
     @oh = OfficeHour.find(id) # look up movie by unique ID
 
-    # curr time between oh time and an hour after
-    # more flexible for repeated meetings?
-    # should probs get length from user? must discuss
-    if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
+    #if Time.now() < @oh.time or Time.now() > @oh.time + 60*60
+    if !@oh.active
       flash.now[:notice] = "This OH is not currently active"
     end
     @queue_entries = QueueEntry.all
@@ -52,13 +50,30 @@ class OfficeHoursController < ApplicationController
       flash[:notice] = "You need to be signed in to do this!"
       redirect_to new_user_session_path
     end
+  end
 
+  def activate
+    @oh = OfficeHour.find(params[:id])
+    @oh.active = true
+    @oh.save
+    redirect_to office_hour_path(@oh)
+  end
+
+  def deactivate
+    @oh = OfficeHour.find(params[:id])
+    @queue_entries = QueueEntry.all #this'll need to be changed...
+    for quentry in @queue_entries
+      quentry.destroy
+    end
+    @oh.active = false
+    @oh.save
+    redirect_to office_hour_path(@oh)
   end
 
   private
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def office_hour_params
-    params.require(:office_hour).permit(:host, :class_name, :time, :zoom_info, :email)
+    params.require(:office_hour).permit(:host, :class_name, :time, :zoom_info, :email, :active)
   end
 end

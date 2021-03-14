@@ -41,6 +41,12 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       if (queueEntry.length != 0) {
         $(queueEntry).remove()
       }
+
+    } else if (data["op"] == "refresh") {
+      console.log("bye")
+      window.location.reload(true)
+      console.log("bye")
+
     } else {
       // Unimplemented
     }
@@ -51,6 +57,8 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"]});
     } else if (op == "dequeue") {
       return this.perform('speak', {"op": op, "qeID": args["qeID"]})
+    } else if (op == "refresh") {
+      return this.perform('speak', {"op": op})
     } else {
       console.log("Unimplemented")
     }
@@ -86,5 +94,10 @@ $(document).ready(function() {
         App.oh.speak("dequeue", {"qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
+
+  // $("#activate-btn").click(function() {
+  //   console.log("hi")
+  //   App.oh.speak("refresh", {});
+  // });
 });
 

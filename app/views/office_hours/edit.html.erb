@@ -7,6 +7,7 @@
   <%= datetime_local_field :office_hour, :time, :class => 'col-form-control' %>
   <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control'%>
   <%= hidden_field :office_hour, :email, value: current_user.email %>
+  <%= hidden_field :office_hour, :active, value: true %>
   <br/>
   <br/>
   <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>

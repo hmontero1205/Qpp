@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
   resources :office_hours
+  match '/activate_office_hour/:id', to: 'office_hours#activate', as: 'activate_office_hour', via: :get
+  match '/deactivate_office_hour/:id', to: 'office_hours#deactivate', as: 'deactivate_office_hour', via: :get
   mount ActionCable.server => '/cable'
   root :to => redirect('/office_hours')
   # The priority is based upon order of creation: first created -> highest priority.
