@@ -128,4 +128,33 @@ RSpec.describe OfficeHoursController, :type => :controller do
       expect(response).to redirect_to(:action => :index)
       expect(OfficeHour.find(test_oh.id).class_name).to eq "PLT"
   end
+
+  it 'activates an OH' do
+      test_user = User.new(email: "hans@mail", name: "Hans", surname: "Montero")
+      test_user.save!(validate: false)
+      test_oh = OfficeHour.create!(host: "Hans", class_name: "PLT", time: "2021-03-14 9:40 PM", zoom_info: "zoooom", "user_id": test_user.id)
+
+      expect(test_oh.active).to eq false
+      allow(controller).to receive(:current_user).and_return(test_user) 
+      post :activate, params: {id: test_oh.id, format: :js}
+
+      expect(OfficeHour.find(test_oh.id).active).to eq true
+  end
+
+  it 'deactivates an OH' do
+      test_user = User.new(email: "hans@mail", name: "Hans", surname: "Montero")
+      test_user.save!(validate: false)
+      test_oh = OfficeHour.create!(host: "Hans", class_name: "PLT", time: "2021-03-14 9:40 PM", zoom_info: "zoooom", "user_id": test_user.id)
+      QueueEntry.create!(student: "Matt", office_hour_id: test_oh.id)
+
+      expect(test_oh.active).to eq false
+      allow(controller).to receive(:current_user).and_return(test_user) 
+      post :activate, params: {id: test_oh.id, format: :js}
+
+      expect(OfficeHour.find(test_oh.id).active).to eq true
+
+      post :deactivate, params: {id: test_oh.id, format: :js}
+      expect(OfficeHour.find(test_oh.id).active).to eq false
+      expect(QueueEntry.where(office_hour_id: test_oh.id).length).to eq 0
+  end
 end
