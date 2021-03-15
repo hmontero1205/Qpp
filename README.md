@@ -6,6 +6,8 @@ Evan Mesterhazy \<etm2131@columbia.edu>
 
 [Heroku Deployment](https://enigmatic-shelf-31249.herokuapp.com)
 
+[Iteration 1 Release](https://github.com/hmontero1205/Qpp/releases/tag/v1.0)
+
 Code Coverage: 💯%
 
 Dependencies

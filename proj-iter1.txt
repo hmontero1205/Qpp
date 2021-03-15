@@ -7,6 +7,9 @@ Evan Mesterhazy <etm2131@columbia.edu>
 GitHub Repo: https://github.com/hmontero1205/Qpp
 Heroku Deployment: https://enigmatic-shelf-31249.herokuapp.com
 
+Iteration 1 is at the v1.0 tag.
+https://github.com/hmontero1205/Qpp/releases/tag/v1.0
+
 Dependencies
 ------------
 Mostly handled by `bin/bundle update && bin/bundle install`.
