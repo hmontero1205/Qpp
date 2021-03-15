@@ -1,25 +1,23 @@
-[Q++; Office hours done right.](https://github.com/hmontero1205/Qpp)
-====================================================================
-Hans Montero \<hjm2133@columbia.edu>  
-Matthew Broughton \<mb4207@columbia.edu>  
-Evan Mesterhazy \<etm2131@columbia.edu>  
+Q++; Office hours done right. (Iteration 1)
+===========================================
+Hans Montero <hjm2133@columbia.edu>  
+Matthew Broughton <mb4207@columbia.edu>  
+Evan Mesterhazy <etm2131@columbia.edu>  
 
-[Heroku Deployment](https://enigmatic-shelf-31249.herokuapp.com)
-
-Code Coverage: 💯%
+GitHub Repo: https://github.com/hmontero1205/Qpp
+Heroku Deployment: https://enigmatic-shelf-31249.herokuapp.com
 
 Dependencies
 ------------
 Mostly handled by `bin/bundle update && bin/bundle install`.
 
 Manually install postgresql. We use it for ActionCable. On Linux, you may have
-to create a user for yourself see
-[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+to create a user for yourself see https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04
 for more details.
 
 Please also install geckodriver, as it is needed for our cucumber tests.  e.g.
 `brew install geckodriver` on MacOS or see
-[this](https://github.com/mozilla/geckodriver/releases).
+https://github.com/mozilla/geckodriver/releases
 
 Walkthrough
 -----------
@@ -53,3 +51,8 @@ walkthrough of the features we currently support.
    queue entries and disable the queue feature.
 9. We also support the rest of the CRUD operations for OH. That is, a TA can
    also delete an OH session or update OH attributes.
+
+Running Tests
+-------------
+Nothing special, just run `rails spec` and `rails cucumber`. The coverage report
+says we've achieved 100% coverage!
