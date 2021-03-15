@@ -51,6 +51,7 @@ group :development, :test do
   gem 'ZenTest' 
   gem 'launchy'
   gem 'rails-controller-testing'
+  gem 'action-cable-testing'
 end
 
 group :development do
