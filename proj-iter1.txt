@@ -46,7 +46,7 @@ walkthrough of the features we currently support.
    enqueuer will also be able to remove themselves). Back on the TA tab, remove
    some queue entries by clicking the X-button. All tabs should see that the
    queue entries were removed!
-8. When the TA decides that OH is over, they simple deactivate the OH by hitting
+8. When the TA decides that OH is over, they simply deactivate the OH by hitting
    the deactivate button at the bottom of the OH view. This will remove all
    queue entries and disable the queue feature.
 9. We also support the rest of the CRUD operations for OH. That is, a TA can
