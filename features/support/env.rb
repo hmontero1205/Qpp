@@ -6,6 +6,7 @@
 
 require 'simplecov'
 require 'cucumber/rails'
+require 'cucumber/timecop'
 
 # frozen_string_literal: true
 
