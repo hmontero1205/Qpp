@@ -36,12 +36,7 @@ Feature: Join an office hours session
   Scenario: TA can remove users that are enqueued
     # Log in first
     Given office hour 1 is active
-    And I go to the log in page
-    Then I should be on the log in page
-    When I fill in "Email" with "ta6969@columbia.edu"
-    When I fill in "Password" with "Roblox!69XD"
-    And I press "Log in"
-    Then I should see "Signed in successfully."
+    Given I log in with user "ta6969@columbia.edu" and password "Roblox!69XD"
 
     And I go to the home page
     And I follow "See more"
