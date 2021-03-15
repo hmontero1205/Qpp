@@ -26,7 +26,8 @@ Please also install geckodriver, as it is needed for our cucumber tests.  e.g.
 Walkthrough
 -----------
 Start up a local server (via `rails s`) or visit the heroku deployment. Here's a
-walkthrough of the features we currently support.
+walkthrough of the features we currently support. If deploying locally, please
+run all migrations (via `rails db:migrate`).
 
 1. As a TA, you must register with the service in order to create new OH event.
    Start by registering and logging in.
