@@ -11,7 +11,7 @@ Background: user exists
 
 Scenario: create an office hours
   When I go to the OH create page
-  Then I should be on "Log in"
+  Then I should be on the log in page
   When I fill in the following:
       | Email     | ta6969@colombia.edu |
       | Password  | Roblox!69           |
