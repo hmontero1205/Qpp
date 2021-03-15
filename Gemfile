@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 ruby '~> 2.7'
 # gem 'rails', '4.2.10'
@@ -48,7 +47,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'ZenTest' 
+  gem 'ZenTest'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'action-cable-testing'
@@ -62,12 +61,13 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
-group :test do
-  gem 'cucumber-rails', :require => false
-  gem 'cucumber-rails-training-wheels'
-  gem 'simplecov', :require => false
-  gem 'cucumber-timecop', :require => false
-end
+  group :test do
+    gem 'cucumber-rails', :require => false
+    gem 'cucumber-rails-training-wheels'
+    gem 'simplecov', :require => false
+    gem 'cucumber-timecop', :require => false
+    gem 'selenium-webdriver'
+  end
 
 end
 
