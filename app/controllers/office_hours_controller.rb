@@ -83,7 +83,7 @@ class OfficeHoursController < ApplicationController
 
   def deactivate
     @oh = OfficeHour.find(params[:id])
-    @queue_entries = QueueEntry.all #this'll need to be changed...
+    @queue_entries = @oh.queue_entries.order(start_time: :asc)
     for quentry in @queue_entries
       quentry.destroy
     end
