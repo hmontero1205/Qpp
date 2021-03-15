@@ -1,20 +1,16 @@
-
-
-# Then /^(?:|I )go to $/ do 
-#   visit path_to(page_name)
-# end
-
-# Given /the following movies exist/ do |movies_table|
-#   movies_table.hashes.each do |movie|
-#     Movie.create movie
-#   end
-# end
-
-Then /I should be on (.+)/ do |page_name|
-  #  ensure that that e1 occurs before e2.
-  #  page.body is the entire content of the page as a string.
-  expect(page).to have_current_path(path_to(page_name))
+Given /the following users exist/ do |users_table|
+  users_table.hashes.each do |user|
+    User.create!({
+             :email => user[:email],
+             :password => user[:password],
+             :password_confirmation => user[:password]
+           })
+  end
 end
+
+# Then /I should be on (.+)/ do |page_name|
+#   expect(page).to have_current_path(path_to(page_name))
+# end
 
 # When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
 #   rating_list.split(', ').each do |rating|
