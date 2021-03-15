@@ -7,13 +7,13 @@ Feature: Create a office hours session
 Background: user exists
   Given the following users exist:
   | email               | password    |
-  | ta6969@colombia.edu | Roblox!69XD |
+  | ta6969@colombia.edu | memexD |
 
 Scenario: create an office hours
   When I go to the OH create page
   Then I should be on the log in page
   When I fill in "Email" with "ta6969@colombia.edu"
-  When I fill in "Password" with "Roblox!69XD"
+  When I fill in "Password" with "memexD"
   And I press "Log in"
 
   Then I should be on the OH create page

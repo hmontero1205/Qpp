@@ -7,7 +7,7 @@ Feature: Create a office hours session
 Background: user and oh exists
     Given the following user exists:
       | id | email               | password  |
-      | 1  | ta6969@colombia.edu | Roblox!69 |
+      | 1  | ta6969@colombia.edu | memexD |
 
     Given the following office hour exists:
       | id | host   | class_name               | time   | zoom_info    | user_id |
@@ -17,7 +17,7 @@ Scenario: delete an office hours
   When I go to the home page
   Then I go to the log in page
   When I fill in "Email" with "ta6969@colombia.edu"
-  When I fill in "Password" with "Roblox!69"
+  When I fill in "Password" with "memexD"
   And I press "Log in"
 
   Then I should be on the home page

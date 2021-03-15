@@ -13,8 +13,8 @@ Scenario: sign up
   Then I should be on the sign up page
 
   When I fill in "Email" with "ta6969@colombia.edu"
-  When I fill in "Password" with "Roblox!69XD"
-  When I fill in "Password confirmation" with "Roblox!69XD"
+  When I fill in "Password" with "memexD"
+  When I fill in "Password confirmation" with "memexD"
   And I press "Sign up"
 
   Then I should be on the home page

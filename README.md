@@ -1,11 +1,54 @@
-Q++; Office hours done right.
+[Q++; Office hours done right.](https://github.com/hmontero1205/Qpp)
 =============================
 Hans Montero \<hjm2133@columbia.edu>  
 Matthew Broughton \<mb4207@columbia.edu>  
 Evan Mesterhazy \<etm2131@columbia.edu>  
 
 [Heroku Deployment](https://enigmatic-shelf-31249.herokuapp.com)
+Code Coverage: 💯%
 
+Dependencies
+------------
+Mostly handled by `bin/bundle update && bin/bundle install`.
 
+Manually install postgresql. We use it for ActionCable. On Linux, you may have
+to create a user for yourself see
+[here](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+for more details.
 
-todo -> fix devise button css
+Please also install geckodriver, as it is needed for our cucumber tests.  e.g.
+`brew install geckodriver` on MacOS or see
+[this](https://github.com/mozilla/geckodriver/releases).
+
+Walkthrough
+-----------
+Start up a local server (via `rails s`) or visit the heroku deployment. Here's a
+walkthrough of the features we currently support.
+
+1. As a TA, you must register with the service in order to create new OH event.
+   Start by registering and logging in.
+2. Once you are logged in as a TA, schedule an office hour session! You should
+   now have the option to do so back on the home page. We aren't integrating
+   with Zoom yet so just put in a Zoom link when prompted for Zoom info.
+3. Go to the page for the OH you just created. You should see an enable/disable
+   button on the bottom. By default, OH start off as disabled which means
+   students will not be able to enqueue themselves.
+4. Open an incognito tab and navigate to the same OH page. Since you aren't
+   logged in here, you are effectively in "student mode". Since the OH isn't
+   enabled yet, you can't enqueue yourself!
+5. Back on the TA tab, hit enable OH. You should now see that the queue
+   functionality is online.
+6. Back on the student tab, enqueue yourself! Using ActionCable, we implemented
+   live events. Updates to the queue are published to all visitors without
+   having to refresh the page. Each queue entry has a timer saying how long the
+   student has been waiting since enqueuing themselves. Feel free to make more
+   queue entries!
+7. Only the TA has the power to dequeue students right now (in the future the
+   enqueuer will also be able to remove themselves). Back on the TA tab, remove
+   some queue entries by clicking the X-button. All tabs should see that the
+   queue entries were removed!
+8. When the TA decides that OH is over, they simple deactivate the OH by hitting
+   the deactivate button at the bottom of the OH view. This will remove all
+   queue entries and disable the queue feature.
+9. We also support the rest of the CRUD operations for OH. That is, a TA can
+   also delete an OH session or update OH attributes.

@@ -6,7 +6,7 @@ Feature: Join an office hours session
   Background: office hour exists
     Given the following user exists:
       | id | email               | password    |
-      | 1  | ta6969@columbia.edu | Roblox!69XD |
+      | 1  | ta6969@columbia.edu | memexD |
 
     Given the following office hour exists:
       | id | host   | class_name               | time   | zoom_info    | user_id |
@@ -36,7 +36,7 @@ Feature: Join an office hours session
   Scenario: TA can remove users that are enqueued
     # Log in first
     Given office hour 1 is active
-    Given I log in with user "ta6969@columbia.edu" and password "Roblox!69XD"
+    Given I log in with user "ta6969@columbia.edu" and password "memexD"
 
     And I go to the home page
     And I follow "See more"
@@ -50,7 +50,7 @@ Feature: Join an office hours session
 
   @javascript
   Scenario: TA can activate and deactivate Office Hours
-    Given I log in with user "ta6969@columbia.edu" and password "Roblox!69XD"
+    Given I log in with user "ta6969@columbia.edu" and password "memexD"
     And I go to the home page
     And I follow "See more"
     Then I should see "This OH is not currently active"
