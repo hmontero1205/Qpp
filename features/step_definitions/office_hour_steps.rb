@@ -9,3 +9,9 @@ Given /office hour (\d) is (active|inactive)/ do |office_hour_id, active|
   oh.active = active == "active"
   oh.save!
 end
+
+When /I follow the data-confirmed (.*) button/ do |name|
+	accept_confirm do
+	  click_link name
+	end
+end
