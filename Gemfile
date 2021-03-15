@@ -50,6 +50,7 @@ group :development, :test do
   gem 'capybara'
   gem 'ZenTest' 
   gem 'launchy'
+  gem 'rails-controller-testing'
 end
 
 group :development do
