@@ -69,7 +69,8 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
   }
 });
 
-$(document).ready(function() {
+function channelInitialize() {
+  console.log(railsOHID)
   $("#enqueue-btn").click(function() {
     nameInput = $("#name-input")
     if (!nameInput[0].checkValidity()) {
@@ -107,7 +108,7 @@ $(document).ready(function() {
       App.oh.speak("dequeue", {"ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
-});
+}
 
 
 
