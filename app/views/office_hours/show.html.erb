@@ -3,33 +3,40 @@
   var railsOHID = <%= @oh.id %>
 </script>
 
-<h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
-
-<ul id="details" style="margin-bottom: 0em;">
-  <li>
-    Date/time:
-    <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
-  </li>
-  <li>
-    Zoom info:
-    <a href=<%= @oh.zoom_info %>><%= @oh.zoom_info %></a>
-  </li>
-</ul>
+<div class="row">
+  <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
+</div>
+<div class="row">
+  <ul id="details" class="list-group" style="margin-bottom: 0em;">
+  <li class="list-group-item list-group-item-secondary">Details</li>
+    <li class="list-group-item">
+      Date/time:
+      <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
+    </li>
+    <li class="list-group-item">
+      Zoom info: <a href=<%= @oh.zoom_info %>>link</a>
+    </li>
+  </ul>
+</div>
 
 <% if @oh.active %>
-  <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
-    <% @queue_entries.each do |quentry| %>
-      <%= render quentry %>
-    <% end %>
+  <div class="row">
+    <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
+      <% @queue_entries.each do |quentry| %>
+        <%= render quentry %>
+      <% end %>
+    </div>
   </div>
 
-  <div style="background-color: #bfbfbf; padding: .25em; width: max-content; border-radius: 5px;">
-    <label>Enqueue yourself!</label><br/>
-    <div id="error-box" style="color: red"></div>
-    <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
-    <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
-    <input id="oh-input" type="hidden" value=<%= @oh.id %> />
-    <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
+  <div class="row">
+    <div style="background-color: #bfbfbf; padding: .25em; width: max-content; border-radius: 5px;">
+      <label>Enqueue yourself!</label><br/>
+      <div id="error-box" style="color: red"></div>
+      <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
+      <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
+      <input id="oh-input" type="hidden" value=<%= @oh.id %> />
+      <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
+    </div>
   </div>
 <% end %>
 
