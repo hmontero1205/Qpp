@@ -23,7 +23,7 @@
 
     <% if @oh.active %>
       <div class="row">
-        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 30rem; overflow: auto">
+        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 30rem; overflow: auto; width: 100%">
           <% @queue_entries.each do |quentry| %>
             <%= render quentry %>
           <% end %>

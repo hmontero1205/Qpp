@@ -36,7 +36,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       nameSpan = $("<span />").html(data['name'])
       buttsSpan = $("<span />").attr('style',"display: inline-block; float: right")
       xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'padding: 5px 10px; margin: -5px;').html("X")
-      threadButton = $("<button />").attr('class', 'thread-btn btn btn-info').attr('style', 'padding: 5px 10px; margin: -5px 10px -5px -5px;').html("Thread")
+      threadButton = $("<button />").attr('id', 'thread-btn-'+data["qe_id"]).attr('class', 'thread-btn btn btn-info').attr('style', 'padding: 5px 10px; margin: -5px 10px -5px -5px;').html("Thread")
        
       xButton.click(function() {
         App.oh.speak("dequeue", {"ohID": ohID, "qeID": data["qe_id"]})
@@ -91,6 +91,10 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       });
       currentQE = data["qe"].id
     } else if(data["op"] == "send_msg") {
+
+      threadBtn = $('#thread-btn-'+data["qeID"])
+      $(threadBtn).html("Thread (+"+data["num_chats"]+")")
+
       if (data["qeID"] != currentQE) {
         return;
       }
