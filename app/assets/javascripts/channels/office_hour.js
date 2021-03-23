@@ -59,18 +59,23 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       if (queueEntry.length != 0) {
         $(queueEntry).remove()
       }
+      if (data["qeID"] == currentQE) {
+
+        $("#thread-tools").hide()
+        chatBox = $("#chat-box")
+        $(chatBox).children().slice(2).remove();
+        $($(chatBox).children()[1]).show();
+      }
 
     } else if (data["op"] == "show_thread") {
       if (data["windowID"] != windowID) {
         return
       }
-      console.log(data["qe"])
-      console.log(data["chats"])
-      console.log(data["windowID"])
       currentQE = data["qe"].id
 
       chatBox = $("#chat-box")
-      $(chatBox).children().slice(1).remove();
+      $(chatBox).children().slice(2).remove();
+      $($(chatBox).children()[1]).hide();
       opChat = $("<li />").attr('class', "list-group-item")
       opName = $("<span />").attr('class', 'bg-dark').attr('style', 'display: inline-block; color: white; padding: 0 5px 0 5px; margin-right: 5px').html(data["qe"].student)
       opDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(opName).append(data["qe"].description)
@@ -78,7 +83,6 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       chatBox.append(opChat)
       $("#thread-tools").show()
       data["chats"].forEach(function(chat) {
-        console.log(chat)
         newChat = $("<li />").attr('class', "list-group-item")
         newChatName = $("<span />").attr('class', '').attr('style', 'background-color: #d6d8db; display: inline-block; color: black; padding: 0 5px 0 5px; margin-right: 5px').html(chat.name)
         newChatDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(newChatName).append(chat.msg)

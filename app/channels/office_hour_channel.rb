@@ -21,6 +21,7 @@ class OfficeHourChannel < ApplicationCable::Channel
       qe = QueueEntry.find(data["qeID"])
       if connection.current_user && qe.office_hour.user == connection.current_user
         QueueEntry.destroy(data["qeID"])
+        Chat.where(queue_entry_id: data["qeID"]).delete_all
         ActionCable.server.broadcast "office_hour_channel", "ohID": data["ohID"], op: "dequeue", qeID: data["qeID"]
       end
     elsif data["op"] == "refresh"

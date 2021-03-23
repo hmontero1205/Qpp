@@ -86,6 +86,7 @@ class OfficeHoursController < ApplicationController
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
     for quentry in @queue_entries
       quentry.destroy
+      Chat.where(queue_entry_id: quentry.id).destroy_all
     end
     @oh.active = false
     @oh.save
