@@ -25,6 +25,13 @@ class OfficeHourChannel < ApplicationCable::Channel
       end
     elsif data["op"] == "refresh"
       ActionCable.server.broadcast "office_hour_channel", op: "refresh"
+    elsif data["op"] == "show_thread"
+      queue_entry = QueueEntry.find(data["qeID"]).as_json
+      chats = Chat.where(queue_entry_id: data["qeID"]).as_json
+      ActionCable.server.broadcast "office_hour_channel", op: "show_thread", ohID: data["ohID"], qeID: data["qeID"], qe: queue_entry, chats: chats, windowID: data["windowID"]
+    elsif data["op"] == "send_msg"
+      chat = Chat.create!("name": data["name"], "msg": data["msg"], "office_hour_id": data["ohID"], "queue_entry_id": data["qeID"])
+      ActionCable.server.broadcast "office_hour_channel", op: "send_msg", ohID: data["ohID"], qeID: data["qeID"], chat: chat 
     else
       # Unimplemented
     end

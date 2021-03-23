@@ -1,3 +1,11 @@
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+var clientID = -1
+var currentQE = -1
+
 $(document).ready(function() {
+  windowID = getRandomInt(Number.MAX_SAFE_INTEGER)
   channelInitialize()
 });

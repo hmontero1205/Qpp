@@ -4,13 +4,13 @@
 </script>
 
 <div class="row">
-  <div class="col">
+  <div class="col-md-5">
     <div class="row">
       <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
     </div>
     <div class="row">
-      <ul id="details" class="list-group" style="margin-bottom: 0em;">
-      <li class="list-group-item list-group-item-secondary">Details</li>
+      <ul id="details" class="list-group" style="margin-bottom: 0em; width: 100%">
+      <%# <li class="list-group-item list-group-item-secondary">Details</li> %>
         <li class="list-group-item">
           Date/time:
           <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
@@ -23,7 +23,7 @@
 
     <% if @oh.active %>
       <div class="row">
-        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
+        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 30rem; overflow: auto">
           <% @queue_entries.each do |quentry| %>
             <%= render quentry %>
           <% end %>
@@ -31,7 +31,7 @@
       </div>
 
       <div class="row">
-        <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px;">
+        <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
           <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
           <div id="error-box" style="color: red"></div>
           <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
@@ -44,16 +44,30 @@
 
     <div class="row" style="margin-top: 1em; display: block;">
       <% if user_signed_in? and current_user == @oh.user %>
-        <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto' , :style => 'font-size: 10pt' %>
+        <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto' %>
         <% if @oh.active %>
-          <%= link_to 'Deactivate', deactivate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "deactivate-btn", :remote => true, :style => 'font-size: 10pt'  %>
+          <%= link_to 'Deactivate', deactivate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "deactivate-btn", :remote => true %>
         <% else %>
-          <%= link_to 'Activate', activate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "activate-btn", :remote => true, :style => 'font-size: 10pt'  %>
+          <%= link_to 'Activate', activate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "activate-btn", :remote => true %>
         <% end %>
-        <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', :class => 'btn btn-danger col-md-auto' , :style => 'font-size: 10pt' %>
+        <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', :class => 'btn btn-danger col-md-auto'  %>
       <% end %>
-      <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-md-auto', :style => 'font-size: 10pt' %>
+      <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-md-auto' %>
     </div>
   </div>
-  <div class="col">lol</div>
+  <div class="col-md-2"></div>
+  <div class="col-md-5">
+    <ul id="chat-box" class="list-group">
+      <li class="list-group-item list-group-item-secondary">Conversation</li>
+      <li class="list-group-item">Click on a queue entry to see the thread!</li>
+    </ul>
+    <div id="thread-tools" class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; display:none">
+          <%# <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Follow up!</label><br/> %>
+          <div id="error-box-thread" style="color: red"></div>
+          <input id="name-input-thread" class="form-control" type="text" placeholder="Name" required>
+          <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message" required></textarea>
+          <button id="submit-btn-thread" class="btn btn-primary form-control" style="margin-bottom: 2px;">Send</button>
+    </div>
+
+  </div>
 </div>

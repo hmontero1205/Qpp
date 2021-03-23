@@ -1,7 +1,10 @@
-<div id="qe-<%= queue_entry.id %>"class="card border-info queue_entry" style="width: 18rem;" start_time="<%= queue_entry.created_at %>">
+<div id="qe-<%= queue_entry.id %>"class="card border-info queue_entry" start_time="<%= queue_entry.created_at %>">
   <div class="card-header bg-dark" style="color: white">
     <span><%= queue_entry.student %></span>
-    <button class="qe-btn btn btn-danger" style="float: right; padding: 5px 10px; margin: -5px;">X</button>
+    <span style="display: inline-block; float: right">
+      <button class="thread-btn btn btn-info" style=" padding: 5px 10px; margin: -5px 5px -5px -5px;">Thread</button>
+      <button class="qe-btn btn btn-danger" style="padding: 5px 10px; margin: -5px;">X</button>
+    </span>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item"></li>

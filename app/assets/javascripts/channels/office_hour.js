@@ -1,4 +1,4 @@
-var cardTemplate = '<div class="card border-info queue_entry" style="width: 18rem;"><div class="card-header bg-dark" style="color: white"></div><ul class="list-group list-group-flush"><li class="list-group-item"></li><li class="list-group-item"></li></ul></div>'
+var cardTemplate = '<div class="card border-info queue_entry"><div class="card-header bg-dark" style="color: white"></div><ul class="list-group list-group-flush"><li class="list-group-item"></li><li class="list-group-item"></li></ul></div>'
 
 function str_pad_left(string, pad, length) {
   return (new Array(length+1).join(pad)+string).slice(-length);
@@ -34,13 +34,22 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       sec = Math.floor(seconds % 60);
 
       nameSpan = $("<span />").html(data['name'])
-      xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'float: right; padding: 5px 10px; margin: -5px;').html("X")
+      buttsSpan = $("<span />").attr('style',"display: inline-block; float: right")
+      xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'padding: 5px 10px; margin: -5px;').html("X")
+      threadButton = $("<button />").attr('class', 'thread-btn btn btn-info').attr('style', 'padding: 5px 10px; margin: -5px 10px -5px -5px;').html("Thread")
+       
       xButton.click(function() {
         App.oh.speak("dequeue", {"ohID": ohID, "qeID": data["qe_id"]})
       });
+      threadButton.click(function() {
+        card = $($($($(this).parent()[0]).parent()[0]).parent()[0])[0]
+        ohID = $("#oh-input").val()  
+        App.oh.speak("show_thread", {"windowID": windowID, "ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
+      })
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
-      $(newCard.children()[0]).append(xButton)
+      $(newCard.children()[0]).append(buttsSpan)
+      $(buttsSpan).append(threadButton).append(xButton)
       $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
       $($(newCard.children()[1]).children()[1]).html(data['desc'])
 
@@ -51,8 +60,46 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
         $(queueEntry).remove()
       }
 
+    } else if (data["op"] == "show_thread") {
+      if (data["windowID"] != windowID) {
+        return
+      }
+      console.log(data["qe"])
+      console.log(data["chats"])
+      console.log(data["windowID"])
+      currentQE = data["qe"].id
+
+      chatBox = $("#chat-box")
+      $(chatBox).children().slice(1).remove();
+      opChat = $("<li />").attr('class', "list-group-item")
+      opName = $("<span />").attr('class', 'bg-dark').attr('style', 'display: inline-block; color: white; padding: 0 5px 0 5px; margin-right: 5px').html(data["qe"].student)
+      opDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(opName).append(data["qe"].description)
+      opChat.append(opDesc)
+      chatBox.append(opChat)
+      $("#thread-tools").show()
+      data["chats"].forEach(function(chat) {
+        console.log(chat)
+        newChat = $("<li />").attr('class', "list-group-item")
+        newChatName = $("<span />").attr('class', '').attr('style', 'background-color: #d6d8db; display: inline-block; color: black; padding: 0 5px 0 5px; margin-right: 5px').html(chat.name)
+        newChatDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(newChatName).append(chat.msg)
+        newChat.append(newChatDesc)
+        chatBox.append(newChat)
+      });
+      currentQE = data["qe"].id
+    } else if(data["op"] == "send_msg") {
+      if (data["qeID"] != currentQE) {
+        return;
+      }
+
+      chatBox = $("#chat-box")
+      chat = data["chat"]
+      newChat = $("<li />").attr('class', "list-group-item")
+      newChatName = $("<span />").attr('class', '').attr('style', 'background-color: #d6d8db; display: inline-block; color: black; padding: 0 5px 0 5px; margin-right: 5px').html(chat.name)
+      newChatDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(newChatName).append(chat.msg)
+      newChat.append(newChatDesc)
+      chatBox.append(newChat)
     } else {
-      // Unimplemented
+
     }
   },
 
@@ -63,6 +110,10 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"]})
     } else if (op == "refresh") {
       return this.perform('speak', {"op": op})
+    } else if (op == "show_thread") {
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"], "windowID": args["windowID"]})
+    } else if (op == "send_msg") {
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"], "name": args["name"], "msg": args["msg"]})
     } else {
       console.log("Unimplemented")
     }
@@ -70,7 +121,6 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 });
 
 function channelInitialize() {
-  console.log(railsOHID)
   $("#enqueue-btn").click(function() {
     nameInput = $("#name-input")
     if (!nameInput[0].checkValidity()) {
@@ -84,6 +134,23 @@ function channelInitialize() {
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
+    nameInput.val("")
+    descInput.val("")
+  });
+
+  $("#submit-btn-thread").click(function() {
+    nameInput = $("#name-input-thread")
+    if (!nameInput[0].checkValidity()) {
+      $(nameInput).attr("style", "border: 2px solid red;")
+      $("#error-box-thread").html("Name field is required!")
+      return
+    } else {
+      $(nameInput).attr("style", "border: none;")
+      $("#error-box-thread").html("")
+    }
+    descInput = $("#desc-input-thread")
+    ohInput = $("#oh-input")
+    App.oh.speak("send_msg", {"ohID": ohInput.val(), "name": nameInput.val(), "msg": descInput.val(), "qeID": currentQE})
     nameInput.val("")
     descInput.val("")
   });
@@ -103,9 +170,16 @@ function channelInitialize() {
 
   $(".qe-btn").each(function () {
     $(this).click(function() {
-      card = $($($(this).parent()[0]).parent()[0])[0]
+      card = $($($($(this).parent()[0]).parent()[0]).parent()[0])[0]
       ohID = $("#oh-input").val()  
       App.oh.speak("dequeue", {"ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
+    })
+  });
+  $(".thread-btn").each(function () {
+    $(this).click(function() {
+      card = $($($($(this).parent()[0]).parent()[0]).parent()[0])[0]
+      ohID = $("#oh-input").val()  
+      App.oh.speak("show_thread", {"windowID": windowID, "ohID": ohID, "qeID": parseInt($(card).attr("id").split("-")[1])})
     })
   });
 }
