@@ -49,7 +49,11 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
       $(newCard.children()[0]).append(buttsSpan)
-      $(buttsSpan).append(threadButton).append(xButton)
+      $(buttsSpan).append(threadButton)
+
+      if (data["creator"] == $('#enqueue-btn').data('session') || ($('#enqueue-btn').data('bool')  && (data["oh_user"] == $('#enqueue-btn').data('user')))) {
+        $(buttsSpan).append(xButton)
+      } 
       $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
       $($(newCard.children()[1]).children()[1]).html(data['desc'])
 
@@ -106,6 +110,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       newChatDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(newChatName).append(chat.msg)
       newChat.append(newChatDesc)
       chatBox.append(newChat)
+
     } else {
 
     }
@@ -113,9 +118,9 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 
   speak: function(op, args) {
     if (op == "enqueue") {
-      return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"]});
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "name": args["name"], "desc": args["desc"], "sess": args["sess"]});
     } else if (op == "dequeue") {
-      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"]})
+      return this.perform('speak', {"op": op, "ohID": args["ohID"], "qeID": args["qeID"], "sess": args["sess"]})
     } else if (op == "refresh") {
       return this.perform('speak', {"op": op})
     } else if (op == "show_thread") {

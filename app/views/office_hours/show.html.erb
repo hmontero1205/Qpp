@@ -1,6 +1,6 @@
 <!--  app/views/movies/show.html.erb -->
 <script>
-  var railsOHID = <%= @oh.id %>
+  var railsOHID = <%= @oh.id %>;
 </script>
 
 <div class="row">
@@ -37,7 +37,11 @@
           <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
           <textarea id="desc-input" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Description" data-behavior="oh_enqueue"></textarea>
           <input id="oh-input" type="hidden" value=<%= @oh.id %> />
-          <button id="enqueue-btn" class="btn btn-primary form-control" style="margin-bottom: 2px;">Submit</button>
+          <% if user_signed_in? %>
+            <button id="enqueue-btn" data-session="<%= session.id.to_s %>"class="btn btn-primary form-control" data-user="<%= current_user.id %>" data-bool="<%= user_signed_in? %>" style="margin-bottom: 2px;">Submit</button>
+          <% else %>
+            <button id="enqueue-btn" data-session="<%= session.id.to_s %>"class="btn btn-primary form-control" data-bool="<%= user_signed_in? %>" style="margin-bottom: 2px;">Submit</button>
+          <% end %>
         </div>
       </div>
     <% end %>
