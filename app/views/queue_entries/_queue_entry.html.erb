@@ -5,7 +5,9 @@
       <button id="thread-btn-<%= queue_entry.id %>" class="thread-btn btn btn-info" style=" padding: 5px 10px; margin: -5px 5px -5px -5px;">
         Thread<%= (Chat.where(queue_entry_id: queue_entry.id).length > 0) ? "(+#{Chat.where(queue_entry_id: queue_entry.id).length})" : "" %>
       </button>
-      <button class="qe-btn btn btn-danger" style="padding: 5px 10px; margin: -5px;">X</button>
+      <% if ((user_signed_in? and current_user == @oh.user) or (queue_entry.creator_id.eql? session.id.to_s)) %>
+        <button class="qe-btn btn btn-danger" style="padding: 5px 10px; margin: -5px;">X</button>
+      <% end %>
     </span>
   </div>
   <ul class="list-group list-group-flush">
