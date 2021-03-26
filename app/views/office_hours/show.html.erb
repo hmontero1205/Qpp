@@ -1,44 +1,73 @@
 <!--  app/views/movies/show.html.erb -->
+<script>
+  var railsOHID = <%= @oh.id %>
+</script>
 
-<h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
+<div class="row">
+  <div class="col-md-5">
+    <div class="row">
+      <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
+    </div>
+    <div class="row">
+      <ul id="details" class="list-group" style="margin-bottom: 0em; width: 100%">
+      <%# <li class="list-group-item list-group-item-secondary">Details</li> %>
+        <li class="list-group-item">
+          Date/time:
+          <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
+        </li>
+        <li class="list-group-item">
+          Zoom info: <a href=<%= @oh.zoom_info %>>link</a>
+        </li>
+      </ul>
+    </div>
 
-<ul id="details" style="margin-bottom: 0em;">
-  <li>
-    Date/time:
-    <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
-  </li>
-  <li>
-    Zoom info:
-    <a href=<%= @oh.zoom_info %>><%= @oh.zoom_info %></a>
-  </li>
-</ul>
-
-<% if @oh.active %>
-  <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 20rem; width:20rem; overflow: auto">
-    <% @queue_entries.each do |quentry| %>
-      <%= render quentry %>
-    <% end %>
-  </div>
-
-  <div style="background-color: #bfbfbf; padding: .25em; width: max-content; border-radius: 5px;">
-    <label>Enqueue yourself!</label><br/>
-    <div id="error-box" style="color: red"></div>
-    <input id="name-input" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
-    <input id="desc-input" type="text" placeholder="Description" data-behavior="oh_enqueue">
-    <input id="oh-input" type="hidden" value=<%= @oh.id %> />
-    <button id="enqueue-btn" class="btn btn-primary" style="margin-bottom: 2px;">Submit</button>
-  </div>
-<% end %>
-
-<div class="row" style="margin-top: 1em; display: block;">
-  <% if user_signed_in? and current_user == @oh.user %>
-    <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-2' %>
     <% if @oh.active %>
-      <%= link_to 'Deactivate', deactivate_office_hour_path(@oh), :class => 'btn btn-primary col-2', :id => "deactivate-btn", :remote => true%>
-    <% else %>
-      <%= link_to 'Activate', activate_office_hour_path(@oh), :class => 'btn btn-primary col-2', :id => "activate-btn", :remote => true%>
+      <div class="row">
+        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; max-height: 30rem; overflow: auto; width: 100%">
+          <% @queue_entries.each do |quentry| %>
+            <%= render quentry %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
+          <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
+          <div id="error-box" style="color: red"></div>
+          <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
+          <textarea id="desc-input" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Description" data-behavior="oh_enqueue"></textarea>
+          <input id="oh-input" type="hidden" value=<%= @oh.id %> />
+          <button id="enqueue-btn" class="btn btn-primary form-control" style="margin-bottom: 2px;">Submit</button>
+        </div>
+      </div>
     <% end %>
-    <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', :class => 'btn btn-danger col-2' %>
-<% end %>
-  <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-2' %>
+
+    <div class="row" style="margin-top: 1em; display: block;">
+      <% if user_signed_in? and current_user == @oh.user %>
+        <%= link_to 'Edit', edit_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto' %>
+        <% if @oh.active %>
+          <%= link_to 'Deactivate', deactivate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "deactivate-btn", :remote => true %>
+        <% else %>
+          <%= link_to 'Activate', activate_office_hour_path(@oh), :class => 'btn btn-primary col-md-auto', :id => "activate-btn", :remote => true %>
+        <% end %>
+        <%= link_to 'Delete', office_hour_path(@oh), 'data-method' => 'delete', :class => 'btn btn-danger col-md-auto'  %>
+      <% end %>
+      <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-md-auto' %>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-5">
+    <ul id="chat-box" class="list-group">
+      <li class="list-group-item list-group-item-secondary">Conversation</li>
+      <li class="list-group-item">Click on a queue entry to see the thread!</li>
+    </ul>
+    <div id="thread-tools" class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; display:none">
+          <%# <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Follow up!</label><br/> %>
+          <div id="error-box-thread" style="color: red"></div>
+          <input id="name-input-thread" class="form-control" type="text" placeholder="Name" required>
+          <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message" required></textarea>
+          <button id="submit-btn-thread" class="btn btn-primary form-control" style="margin-bottom: 2px;">Send</button>
+    </div>
+
+  </div>
 </div>
