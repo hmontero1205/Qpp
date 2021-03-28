@@ -61,12 +61,11 @@
   </div>
   <div class="col-md-2"></div>
   <div class="col-md-5">
-    <ul id="chat-box" class="list-group">
+    <ul id="chat-box" class="list-group" style="max-height: 20rem; overflow: auto;">
       <li class="list-group-item list-group-item-secondary">Conversation</li>
       <li class="list-group-item">Click on a queue entry to see the thread!</li>
     </ul>
     <div id="thread-tools" class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; display:none">
-          <%# <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Follow up!</label><br/> %>
           <div id="error-box-thread" style="color: red"></div>
           <input id="name-input-thread" class="form-control" type="text" placeholder="Name" required>
           <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message" required></textarea>
