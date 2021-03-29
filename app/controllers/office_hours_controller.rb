@@ -2,6 +2,7 @@
 # See routes.rb for details
 
 class OfficeHoursController < ApplicationController
+  WEEKDAYS = [%w[S sunday], %w[M monday], %w[T tuesday], %w[W wednesday], %w[T thursday], %w[F friday], %w[S saturday]]
 
   def index
 
@@ -28,8 +29,7 @@ class OfficeHoursController < ApplicationController
     if !@oh.active
       flash.now[:notice] = "This OH is not currently active"
     end
-
-    session[:id] = 42069 if Rails.env.test? 
+    session[:id] = 42069 if Rails.env.test?
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 
@@ -42,14 +42,30 @@ class OfficeHoursController < ApplicationController
       redirect_to office_hours_path
       return
     end
-    
+
     @oh.destroy
     flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully deleted."
     redirect_to office_hours_path
   end
 
+  def new
+    @weekdays = WEEKDAYS
+    @recurrences = {}
+    # Empty object so the template renders properly
+    @oh = OfficeHour.new
+  end
+
   def create
+    @weekdays = WEEKDAYS
     @oh = current_user.office_hours.create(office_hour_params)
+    @recurrences = params['recurrences']
+    if @recurrences
+      @recurrences.each do |day, active|
+        if active == "1"
+          @oh.office_hour_recurrence.create(day_of_week: day)
+        end
+      end
+    end
     if @oh.invalid?
       flash[:notice] = @oh.errors.full_messages.join('. ')
       render :new
@@ -81,18 +97,13 @@ class OfficeHoursController < ApplicationController
     redirect_to office_hour_path(@oh)
   end
 
-  def new
-    # Empty object so the template renders properly
-    @oh = OfficeHour.new
-  end
-
   def activate
     @oh = OfficeHour.find(params[:id])
     @oh.active = true
     @oh.save
 
     respond_to do |format|
-      format.js {render inline: "App.oh.speak(\"refresh\", {});" }
+      format.js { render inline: "App.oh.speak(\"refresh\", {});" }
     end
   end
 
@@ -107,14 +118,15 @@ class OfficeHoursController < ApplicationController
     @oh.save
 
     respond_to do |format|
-      format.js {render inline: "App.oh.speak(\"refresh\", {});" }
+      format.js { render inline: "App.oh.speak(\"refresh\", {});" }
     end
   end
 
   private
+
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def office_hour_params
-    params.require(:office_hour).permit(:host, :class_name, :time, :zoom_info, :email, :active)
+    params.require(:office_hour).permit(:host, :class_name, :starts_on, :ends_on, :repeats_until, :zoom_info, :active)
   end
 end

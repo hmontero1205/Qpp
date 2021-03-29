@@ -19,7 +19,8 @@ Scenario: create an office hours
   Then I should be on the OH create page
   When I fill in "office_hour_host" with "TA-kun"
   And I fill in "office_hour_class_name" with "Underwater Basketweaving"
-  And I fill in "office_hour_time" with "4:20PM"
+  And I fill in "office_hour_starts_on" with "4:20PM"
+  And I fill in "office_hour_ends_on" with "5:20PM"
   And I fill in "office_hour_zoom_info" with "https://roblox.com"
   And I press "Save Changes"
   Then I should be on the home page
