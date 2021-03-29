@@ -9,6 +9,16 @@
       <th>More Info</th>
     </tr>
   </thead>
+  <div class="row">
+    <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
+    <%= form_tag office_hours_path, method: :get, id: 'search_form' do %>
+      Search for TA or OH:
+        <%= text_field :search, :search, value: params[:search].nil? ? "" : params[:search][:search], :class => 'col-form-control', :required => true %>
+    <%= submit_tag 'Search', id: 'search_submit', class: 'btn btn-primary' %>
+    <%= link_to "Clear search", office_hours_path, :class => 'btn btn-primary' %>
+    <% end %>
+    </div>
+  </div>
   <tbody>
     <% @ohs.each do |oh| %>
       <tr>

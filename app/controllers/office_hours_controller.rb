@@ -4,7 +4,11 @@
 class OfficeHoursController < ApplicationController
 
   def index
-    @ohs = OfficeHour.all
+    if params[:search].nil?
+      @ohs = OfficeHour.all
+    else
+      @ohs = OfficeHour.with_search(params[:search])
+    end
   end
 
   def show
@@ -15,6 +19,7 @@ class OfficeHoursController < ApplicationController
     if !@oh.active
       flash.now[:notice] = "This OH is not currently active"
     end
+
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 

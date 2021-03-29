@@ -8,4 +8,22 @@ class OfficeHour < ActiveRecord::Base
 
   belongs_to :user
   has_many :queue_entries, -> {order("start_time asc")}
+
+  def self.with_search(search)
+  # if ratings_list is an array such as ['G', 'PG', 'R'], retrieve all
+  #  movies with those ratings
+  # if ratings_list is nil, retrieve ALL movies
+
+  	# if order.nil?
+  	oh = OfficeHour.all
+  	# else
+  	# 	moves = Movie.order(order)
+  	# end
+
+  	if search.nil?
+  		return oh
+  	end
+  	
+  	return oh.where('host LIKE :search OR class_name LIKE :search', search: "%#{search[:search]}%")
+  end
 end
