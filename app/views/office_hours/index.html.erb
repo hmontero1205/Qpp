@@ -3,12 +3,22 @@
 <table class="table table-striped col-md-12" id="office_hours">
   <thead>
     <tr>
-      <th>Host</th>
-      <th>Class Name</th>
-      <th>When</th>
+      <th class='<%= @tclass%>'><%= link_to "Host", office_hours_path(request.parameters.merge({:asc => :host})), class: @tclass, id: "host_header" %></th>
+      <th class='<%= @rdclass%>'><%= link_to "Class Name", office_hours_path(request.parameters.merge({:asc => :class_name})), class: @rdclass, id: "class_name_header" %></th>
+      <th class='<%= @fugclass%>'><%= link_to "When", office_hours_path(request.parameters.merge({:asc => :time})), class: @fugclass, id: "time_header" %></th>
       <th>More Info</th>
     </tr>
   </thead>
+  <div class="row">
+    <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
+    <%= form_tag office_hours_path, method: :get, id: 'search_form' do %>
+      Search for TA or OH:
+        <%= text_field :search, :search, value: params[:search].nil? ? "" : params[:search][:search], :class => 'col-form-control', :required => true %>
+    <%= submit_tag 'Search', id: 'search_submit', class: 'btn btn-primary' %>
+    <%= link_to "Clear search", office_hours_path, :class => 'btn btn-primary' %>
+    <% end %>
+    </div>
+  </div>
   <tbody>
     <% @ohs.each do |oh| %>
       <tr>

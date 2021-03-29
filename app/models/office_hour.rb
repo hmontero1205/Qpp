@@ -8,4 +8,18 @@ class OfficeHour < ActiveRecord::Base
 
   belongs_to :user
   has_many :queue_entries, -> {order("start_time asc")}
+
+  def self.with_search(search, order)
+  	if order.nil?
+  	 oh = OfficeHour.all
+  	else
+  	 oh = OfficeHour.order(order)
+  	end
+
+  	if search.nil?
+  		return oh
+  	end
+  	
+  	return oh.where('host LIKE :search OR class_name LIKE :search', search: "%#{search[:search]}%")
+  end
 end

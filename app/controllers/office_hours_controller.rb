@@ -4,7 +4,20 @@
 class OfficeHoursController < ApplicationController
 
   def index
-    @ohs = OfficeHour.all
+
+    @ohs = OfficeHour.with_search(params[:search], params[:asc])
+
+    @tclass = ''
+    @rdclass = ''
+    @fugclass = ''
+
+    if params[:asc].to_s == :host.to_s
+      @tclass = 'hilite bg-warning'
+    elsif params[:asc].to_s == :class_name.to_s
+      @rdclass = 'hilite bg-warning'
+    elsif params[:asc].to_s == :time.to_s
+      @fugclass = 'hilite bg-warning'
+    end
   end
 
   def show
@@ -17,7 +30,6 @@ class OfficeHoursController < ApplicationController
     end
 
     session[:id] = 42069 if Rails.env.test? 
-
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 

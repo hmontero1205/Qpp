@@ -1,6 +1,6 @@
 Given /the following user(?:s)? exist(?:s)?/ do |users_table|
   users_table.hashes.each do |user|
-    User.create(user)
+    User.create!(user)
   end
 end
 
