@@ -9,5 +9,6 @@ class RecurringEvents < ActiveRecord::Migration[6.1]
       t.string "day_of_week" # TODO: This should be an enum
     end
     add_reference :office_hour_recurrences, :office_hour, index: true, foreign_key: true, null: false
+    add_index :office_hour_recurrences, [:id, :day_of_week], :unique => true
   end
 end
