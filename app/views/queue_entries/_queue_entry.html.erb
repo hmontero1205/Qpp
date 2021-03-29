@@ -1,4 +1,4 @@
-<div id="qe-<%= queue_entry.id %>"class="card border-info queue_entry" start_time="<%= queue_entry.created_at %>">
+<div id="qe-<%= queue_entry.id %>"class="card border-info queue_entry" start_time="<%= queue_entry.created_at.strftime("%Y-%m-%dT%H:%M:%S+00:00") %>">
   <div class="card-header bg-dark" style="color: white">
     <span><%= queue_entry.student %></span>
     <span style="display: inline-block; float: right">

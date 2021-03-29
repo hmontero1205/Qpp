@@ -15,6 +15,9 @@ class OfficeHoursController < ApplicationController
     if !@oh.active
       flash.now[:notice] = "This OH is not currently active"
     end
+
+    session[:id] = 42069 if Rails.env.test? 
+
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 

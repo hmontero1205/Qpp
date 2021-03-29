@@ -16,7 +16,7 @@ class OfficeHourChannel < ApplicationCable::Channel
       else
         qe = QueueEntry.create!(entry_args)
       end
-      ActionCable.server.broadcast "office_hour_channel", "ohID": data["ohID"], op: "enqueue", qe_id: qe.id, name: data["name"], desc: data["desc"], start_time: qe.created_at, creator: qe.creator_id, oh_user: qe.office_hour.user.id
+      ActionCable.server.broadcast "office_hour_channel", "ohID": data["ohID"], op: "enqueue", qe_id: qe.id, name: data["name"], desc: data["desc"], start_time: qe.created_at.strftime("%Y-%m-%dT%H:%M:%S+00:00"), creator: qe.creator_id, oh_user: qe.office_hour.user.id
     elsif data["op"] == "dequeue"
       qe = QueueEntry.find(data["qeID"])
       if (connection.current_user && qe.office_hour.user == connection.current_user) or (qe.creator_id.eql? connection.session.id.to_s)

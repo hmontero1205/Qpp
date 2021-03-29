@@ -136,12 +136,12 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 function channelInitialize() {
   $("#enqueue-btn").click(function() {
     nameInput = $("#name-input")
-    if (!nameInput[0].checkValidity()) {
+    if ($(nameInput).val() == "") {
       $(nameInput).attr("style", "border: 2px solid red;")
       $("#error-box").html("Name field is required!")
       return
     } else {
-      $(nameInput).attr("style", "border: none;")
+      $(nameInput).attr("style", "border: 0;")
       $("#error-box").html("")
     }
     descInput = $("#desc-input")
@@ -172,7 +172,9 @@ function channelInitialize() {
     qeBox = $("#queue_entries")
     qeBox.children().each(function () {
       startTime = $(this).attr("start_time")
-      seconds = (new Date() - new Date(startTime)) / 1000;
+      // console.log(startTime)
+      // console.log(new Date(startTime))
+      seconds = (new Date() - Date.parse(startTime)) / 1000;
       min = Math.floor(seconds/60);
       sec = Math.floor(seconds % 60);
 
