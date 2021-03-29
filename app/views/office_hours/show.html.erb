@@ -34,7 +34,7 @@
         <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
           <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
           <div id="error-box" style="color: red"></div>
-          <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" required>
+          <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue">
           <textarea id="desc-input" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Description" data-behavior="oh_enqueue"></textarea>
           <input id="oh-input" type="hidden" value=<%= @oh.id %> />
           <% if user_signed_in? %>
@@ -67,8 +67,8 @@
     </ul>
     <div id="thread-tools" class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; display:none">
           <div id="error-box-thread" style="color: red"></div>
-          <input id="name-input-thread" class="form-control" type="text" placeholder="Name" required>
-          <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message" required></textarea>
+          <input id="name-input-thread" class="form-control" type="text" placeholder="Name">
+          <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message"></textarea>
           <button id="submit-btn-thread" class="btn btn-primary form-control" style="margin-bottom: 2px;">Send</button>
     </div>
 

@@ -50,7 +50,11 @@ When /^(?:|I )go to (.+)$/ do |page_name|
 end
 
 When /^(?:|I )press "([^"]*)"$/ do |button|
-  click_button(button)
+  if button == "X"
+    all('.qe-btn').last.click
+  else
+    click_button(button)
+  end
 end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
