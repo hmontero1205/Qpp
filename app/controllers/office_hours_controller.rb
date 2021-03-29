@@ -4,10 +4,19 @@
 class OfficeHoursController < ApplicationController
 
   def index
-    if params[:search].nil?
-      @ohs = OfficeHour.all
-    else
-      @ohs = OfficeHour.with_search(params[:search])
+
+    @ohs = OfficeHour.with_search(params[:search], params[:asc])
+
+    @tclass = ''
+    @rdclass = ''
+    @fugclass = ''
+
+    if params[:asc].to_s == :host.to_s
+      @tclass = 'hilite bg-warning'
+    elsif params[:asc].to_s == :class_name.to_s
+      @rdclass = 'hilite bg-warning'
+    elsif params[:asc].to_s == :time.to_s
+      @fugclass = 'hilite bg-warning'
     end
   end
 

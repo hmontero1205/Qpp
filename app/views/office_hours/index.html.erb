@@ -3,9 +3,9 @@
 <table class="table table-striped col-md-12" id="office_hours">
   <thead>
     <tr>
-      <th>Host</th>
-      <th>Class Name</th>
-      <th>When</th>
+      <th class='<%= @tclass%>'><%= link_to "Host", office_hours_path(request.parameters.merge({:asc => :host})), class: @tclass, id: "host_header" %></th>
+      <th class='<%= @rdclass%>'><%= link_to "Class Name", office_hours_path(request.parameters.merge({:asc => :class_name})), class: @rdclass, id: "class_name_header" %></th>
+      <th class='<%= @fugclass%>'><%= link_to "When", office_hours_path(request.parameters.merge({:asc => :time})), class: @fugclass, id: "time_header" %></th>
       <th>More Info</th>
     </tr>
   </thead>

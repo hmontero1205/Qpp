@@ -9,16 +9,12 @@ class OfficeHour < ActiveRecord::Base
   belongs_to :user
   has_many :queue_entries, -> {order("start_time asc")}
 
-  def self.with_search(search)
-  # if ratings_list is an array such as ['G', 'PG', 'R'], retrieve all
-  #  movies with those ratings
-  # if ratings_list is nil, retrieve ALL movies
-
-  	# if order.nil?
-  	oh = OfficeHour.all
-  	# else
-  	# 	moves = Movie.order(order)
-  	# end
+  def self.with_search(search, order)
+  	if order.nil?
+  	 oh = OfficeHour.all
+  	else
+  	 oh = OfficeHour.order(order)
+  	end
 
   	if search.nil?
   		return oh
