@@ -24,7 +24,7 @@
       <tr>
         <td><%= oh.host %></td>
         <td><%= oh.class_name %></td>
-        <td><%= oh.time %></td>
+        <td><%= oh.time.strftime("%m/%d/%Y %I:%M%p") %></td>
         <td>
           <%= link_to "See more", office_hour_path(oh) %>
         </td>
