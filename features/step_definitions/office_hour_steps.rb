@@ -4,9 +4,15 @@ Given /the following office hour(?:s)? exist/ do |oh_table|
   end
 end
 
-Given /the following queue entry exists/ do |oh_table|
-  oh_table.hashes.each do |oh|
-    QueueEntry.create(oh)
+Given /the following chat(?:s)? exist/ do |chat_table|
+  chat_table.hashes.each do |chat|
+    Chat.create(chat)
+  end
+end
+
+Given /the following queue entry exists/ do |qe_table|
+  qe_table.hashes.each do |qe|
+    QueueEntry.create(qe)
   end
 end
 
