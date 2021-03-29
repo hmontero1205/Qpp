@@ -53,14 +53,14 @@ ActiveRecord::Schema.define(version: 2021_03_25_232412) do
   end
 
   create_table "office_hours", id: :serial, force: :cascade do |t|
-    t.text "host"
-    t.text "class_name"
+    t.string "host"
+    t.string "class_name"
     t.datetime "time"
-    t.text "zoom_info"
+    t.string "zoom_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "active", default: false
     t.bigint "user_id", null: false
+    t.boolean "active", default: false
     t.index ["user_id"], name: "index_office_hours_on_user_id"
   end
 

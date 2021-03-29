@@ -84,7 +84,7 @@ run all migrations (via `rails db:migrate`).
 
 ### Chat
 1. Once you have an OH session going with some queue entries, click the "Thread" button.
-2. On the side, you should see a chat box open up. This is where the per-student conversation happens!
+2. On the side, you should see a chatbox open up. This is where the per-student conversation happens!
 3. Either as a TA or a student, send a message. The chatbox will update to include your message.
 4. If you have any other tabs open, you'll see that the chat show up if you had the thread open.
 5. The OH view will update even if you don't have the specific chatbox open. Next to every queue entry, you'll see the message count in each thread update as new messages come in. This allows anyone to stay updated on the conversation!
