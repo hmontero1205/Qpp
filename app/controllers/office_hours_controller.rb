@@ -17,7 +17,7 @@ class OfficeHoursController < ApplicationController
       @tclass = 'hilite bg-warning'
     elsif params[:asc].to_s == :class_name.to_s
       @rdclass = 'hilite bg-warning'
-    elsif params[:asc].to_s == :time.to_s
+    elsif params[:asc].to_s == :starts_on.to_s
       @fugclass = 'hilite bg-warning'
     end
   end
