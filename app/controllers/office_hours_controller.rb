@@ -3,6 +3,7 @@
 
 class OfficeHoursController < ApplicationController
   WEEKDAYS = [%w[S sunday], %w[M monday], %w[T tuesday], %w[W wednesday], %w[T thursday], %w[F friday], %w[S saturday]]
+  INT_DAYS = {sunday: 7, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6}
 
   def index
 
@@ -62,7 +63,7 @@ class OfficeHoursController < ApplicationController
     if @recurrences
       @recurrences.each do |day, active|
         if active == "1"
-          @oh.office_hour_recurrence.create(day_of_week: day)
+          @oh.office_hour_recurrence.create(day_of_week: INT_DAYS[day.to_sym])
         end
       end
     end

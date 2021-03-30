@@ -53,10 +53,11 @@ ActiveRecord::Schema.define(version: 2021_03_29_201133) do
   end
 
   create_table "office_hour_recurrences", force: :cascade do |t|
-    t.string "day_of_week"
+    t.integer "day_of_week", null: false
     t.bigint "office_hour_id", null: false
     t.index ["id", "day_of_week"], name: "index_office_hour_recurrences_on_id_and_day_of_week", unique: true
     t.index ["office_hour_id"], name: "index_office_hour_recurrences_on_office_hour_id"
+    t.check_constraint "(day_of_week >= 1) AND (day_of_week <= 7)"
   end
 
   create_table "office_hours", id: :serial, force: :cascade do |t|
