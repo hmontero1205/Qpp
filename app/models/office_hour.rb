@@ -30,7 +30,6 @@ class OfficeHour < ActiveRecord::Base
         weekdays.each do |wd|
           repeats_on.push wd.day_of_week
         end
-        puts repeats_on
         curr = event.starts_on.clone
         while curr < event.repeats_until + 1.day
           if repeats_on.include? curr.wday
