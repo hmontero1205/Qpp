@@ -5,16 +5,16 @@ Feature: Join an office hours session
 
   Background: office hour exists
     Given the following user exists:
-      | id | email               | password    |
-      | 1  | ta6969@columbia.edu | memexD |
+      | id | email               | password |
+      | 1  | ta6969@columbia.edu | memexD   |
 
     Given the following office hour exists:
-      | id | host   | class_name               | time   | zoom_info    | user_id |
-      | 1  | TA-kun | Underwater Basketwelding | 5:00PM | http://zo.om | 1       |
+      | id | host   | class_name               | starts_on | ends_on | zoom_info    | user_id |
+      | 1  | TA-kun | Underwater Basketwelding | 5:00PM    | 6:00PM  | http://zo.om | 1       |
 
     Given the following queue entry exists:
-      | id   | student     | description  | creator_id | office_hour_id |
-      | 100  | Evan-senpai | amogusamogus | 12345      | 1              |
+      | id  | student     | description  | creator_id | office_hour_id |
+      | 100 | Evan-senpai | amogusamogus | 12345      | 1              |
 
   Scenario: Office hour hasn't started yet
     Given it is currently "4:00 pm"
@@ -37,7 +37,7 @@ Feature: Join an office hours session
     Then I should see "LET ME IN"
 
   @javascript
-    Scenario: User joins the queue and later removes themselves
+  Scenario: User joins the queue and later removes themselves
     Given it is currently "5:05 pm"
     And office hour 1 is active
     When I go to the home page
@@ -51,7 +51,7 @@ Feature: Join an office hours session
     Then I should not see "Curious Monky"
 
   @javascript
-    Scenario: User cannot delete queue entries of other users
+  Scenario: User cannot delete queue entries of other users
     Given it is currently "5:05 pm"
     And office hour 1 is active
     When I go to the home page

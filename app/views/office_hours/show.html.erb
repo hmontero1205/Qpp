@@ -13,7 +13,7 @@
       <%# <li class="list-group-item list-group-item-secondary">Details</li> %>
         <li class="list-group-item">
           Date/time:
-          <%= @oh.time.strftime("%m/%d/%Y %I:%M%p") %>
+          <%= @oh.starts_on.strftime("%m/%d/%Y %I:%M%p") %>
         </li>
         <li class="list-group-item">
           Zoom info: <a href=<%= @oh.zoom_info %>>link</a>
