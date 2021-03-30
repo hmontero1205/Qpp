@@ -28,6 +28,8 @@ Main Features
 -------------
 Here's a list of the main features Q++ offers as of now!
 - Clean and usable interface for creating, listing, and searching office hours.
+  - Basic support for creating weekly recurring office hour events
+  - Enhanced search functionality for finding OH sessions
 - TA login portal for OH management
 - Enable/disable OH
 - Live waitqueue: see how long you've been waiting for!
