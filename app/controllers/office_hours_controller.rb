@@ -128,6 +128,8 @@ class OfficeHoursController < ApplicationController
   # Making "internal" methods private is not required, but is a common practice.
   # This helps make clear which methods respond to requests, and which ones do not.
   def office_hour_params
-    params.require(:office_hour).permit(:host, :class_name, :starts_on, :ends_on, :repeats_until, :zoom_info, :active)
+    params.require(:office_hour).permit(:host, :class_name, :starts_on, :ends_on,
+                                        :repeats_until, :zoom_info, :active, :meeting_id,
+                                        :meeting_passcode)
   end
 end

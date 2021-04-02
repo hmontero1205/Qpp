@@ -30,16 +30,26 @@ class ZoomController < ApplicationController
   # - Users have NO CHOICE! They must join the meeting and will
   #   be forced to rejoin if they leave
   # - The CSS for our OH page is bad
+  #
+  # - Add an intersticial page where the user can enter their name and choose to join the meeting
+  # - in office_hours#show don't render the zoom meeting if no meeting ID is provided
+  # - confirm that everything works properly if there's no meeting passcode
+  # - Don't load the zoom meeting for inactive OH
+  #
   def show
+    @oh_id = params[:id]
+    unless @oh_id != nil
+      raise ActionController::RoutingError.new("Missing Office Hour ID!")
+    end
+    @oh = OfficeHour.find(@oh_id)
     @api_key = ENV['ZOOM_API_KEY']
-    @meeting_number = "94424410792"
-    @password = "635627"
+    @meeting_number = @oh.meeting_id
+    @password = @oh.meeting_passcode
     if current_user && !current_user.name.blank?
       @username = current_user.name
     else
       @username = "marty"
     end
-    @oh_id = params[:id]
 
     @siggy = Zoom::SignatureGenerator.new(@meeting_number).signature
     render layout: false
