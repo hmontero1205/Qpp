@@ -34,7 +34,7 @@
         <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
           <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
           <div id="error-box" style="color: red"></div>
-          <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" value="<%= user_signed_in? ? current_user.name : ''%>">
+          <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue">
           <textarea id="desc-input" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Description" data-behavior="oh_enqueue"></textarea>
           <input id="oh-input" type="hidden" value=<%= @oh.id %> />
           <% if user_signed_in? %>
