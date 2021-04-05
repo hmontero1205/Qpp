@@ -6,6 +6,8 @@ class OfficeHour < ActiveRecord::Base
   validates :starts_on, presence: true, allow_blank: false
   validates :ends_on, presence: true, allow_blank: false
   validates :zoom_info, presence: true, allow_blank: false
+  validates :meeting_id, presence: true, allow_blank: false
+  after_validation :strip_whitespace
 
   belongs_to :user
   has_many :queue_entries, -> { order("start_time asc") }
@@ -34,7 +36,8 @@ class OfficeHour < ActiveRecord::Base
         while curr < event.repeats_until + 1.day
           if repeats_on.include? curr.wday
             # Not sure if this is too hacky, but since we never save these to the database it should be fine
-            o = OfficeHour.new id: event.id, starts_on: curr, host: event.host, class_name: event.class_name, zoom_info: event.zoom_info
+            o = OfficeHour.new id: event.id, starts_on: curr, host: event.host, class_name: event.class_name,
+                               meeting_id: event.meeting_id, meeting_passcode: event.meeting_passcode
             rehydrated.push o
           end
           curr = curr + 1.day
@@ -47,5 +50,10 @@ class OfficeHour < ActiveRecord::Base
       rehydrated = rehydrated.sort_by {|item| item.starts_on}
     end
     return rehydrated
+  end
+
+  private
+  def strip_whitespace
+    self.meeting_id = self.meeting_id.delete(' ') unless self.meeting_id.nil?
   end
 end

@@ -12,4 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+// require_tree .
+//= require cable
+//= require channels/office_hour
+//= require office_hours
