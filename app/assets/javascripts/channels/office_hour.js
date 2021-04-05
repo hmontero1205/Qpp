@@ -164,7 +164,7 @@ function channelInitialize() {
     descInput = $("#desc-input-thread")
     ohInput = $("#oh-input")
     App.oh.speak("send_msg", {"ohID": ohInput.val(), "name": nameInput.val(), "msg": descInput.val(), "qeID": currentQE})
-    nameInput.val("")
+    // nameInput.val("")
     descInput.val("")
   });
 
