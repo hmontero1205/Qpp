@@ -7,6 +7,12 @@ Rails.application.routes.draw do
   end
 
   resources :office_hours, only: [:index, :show]
+  resources :office_hours do
+    member do
+      get 'join'
+      post 'join'
+    end
+  end
   mount ActionCable.server => '/cable'
   root :to => redirect('/office_hours')
   get 'zoom', to: 'zoom#show'

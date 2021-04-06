@@ -1,0 +1,14 @@
+<div class="row justify-content-center align-items-center">
+
+  <%= form_with url: join_office_hour_path(1), method: 'post',
+                class: 'form-group', local: true do |form| %>
+  <%= form.label :displayName, "What's your name?" %>
+      <div class="input-group-append">
+  <%= form.text_field :displayName, class: 'form-control',
+                      placeholder: "First Last", required: true,
+                      value: @displayName %>
+  <%= form.submit "Join", class: 'btn btn-primary mx-2' %>
+      </div>
+  <% end %>
+
+</div>

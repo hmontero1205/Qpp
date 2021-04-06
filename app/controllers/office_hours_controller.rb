@@ -34,6 +34,22 @@ class OfficeHoursController < ApplicationController
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
   end
 
+  def join
+    # Interstitial page to ask user for their name before they
+    # join an OH
+    unless current_user.nil?
+      redirect_to office_hour_path params[:id]
+      return
+    end
+    if request.post?
+      session[:displayName] = params[:displayName]
+      redirect_to office_hour_path params[:id]
+      return
+    end
+    # Ok so it's not a form submit (post) and they aren't logged in
+    @displayName = session[:displayName] || ""
+  end
+
   def destroy
     @oh = OfficeHour.find(params[:id])
     # TODO(etm): It seems like we can abstract this pattern into a function, but when I tried
