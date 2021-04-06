@@ -97,7 +97,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
     } else if(data["op"] == "send_msg") {
 
       threadBtn = $('#thread-btn-'+data["qeID"])
-      $(threadBtn).html("(+"+data["num_chats"]+")")
+      $(threadBtn).html("+"+data["num_chats"])
 
       if (data["qeID"] != currentQE) {
         return;

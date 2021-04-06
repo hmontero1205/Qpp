@@ -14,10 +14,19 @@ body {
   height: 100%;
 }
 
-.qe-btn, .thread-btn {
+.qe-btn {
   padding: 2px 7px;
+  font-size: .9vw;
+}
+
+.thread-btn {
+  // float: right;
+  padding: 2px 7px;
+  font-size: .9vw;
+  vertical-align: top;
+  float: right;
 }
 
 #left-col, #right-col {
-  font-size: 10pt;
+  font-size: .9vw;
 }

@@ -3,16 +3,21 @@
     <span><%= queue_entry.student %></span>
     <span></span>
     <span style="display: inline-block; float: right">
-      <button id="thread-btn-<%= queue_entry.id %>" class="btn thread-btn btn-info" style="margin: -5px 5px -5px -5px;">
-        <%= " (+#{Chat.where(queue_entry_id: queue_entry.id).length})" %>
-      </button>
+      <%# <button id="thread-btn-<%= queue_entry.id %1>" class="btn thread-btn btn-info" style="margin: -5px 5px -5px -5px;"> %>
+      <%#   <%= " (+#{Chat.where(queue_entry_id: queue_entry.id).length})" %1> %>
+      <%# </button> %>
       <% if ((user_signed_in? and current_user == @oh.user) or (queue_entry.creator_id.eql? session.id.to_s)) %>
-        <button class="btn qe-btn btn-danger" style=" margin: -5px;">X</button>
+        <button class="btn qe-btn btn-danger">X</button>
       <% end %>
     </span>
   </div>
   <ul class="list-group list-group-flush">
     <%# <li class="list-group-item"></li> %>
-    <li class="list-group-item"><%= queue_entry.description %></li>
+    <li class="list-group-item">
+      <%= queue_entry.description %>
+      <button id="thread-btn-<%= queue_entry.id %>" class="btn thread-btn btn-info" style="">
+        <%= "+#{Chat.where(queue_entry_id: queue_entry.id).length}" %>
+      </button>
+    </li>
   </ul>
 </div>
