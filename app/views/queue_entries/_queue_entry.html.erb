@@ -6,6 +6,9 @@
       <%# <button id="thread-btn-<%= queue_entry.id %1>" class="btn thread-btn btn-info" style="margin: -5px 5px -5px -5px;"> %>
       <%#   <%= " (+#{Chat.where(queue_entry_id: queue_entry.id).length})" %1> %>
       <%# </button> %>
+      <button id="thread-btn-<%= queue_entry.id %>" class="btn thread-btn btn-info" style="">
+        <%= "+#{Chat.where(queue_entry_id: queue_entry.id).length}" %>
+      </button>
       <% if ((user_signed_in? and current_user == @oh.user) or (queue_entry.creator_id.eql? session.id.to_s)) %>
         <button class="btn qe-btn btn-danger">X</button>
       <% end %>
@@ -15,9 +18,7 @@
     <%# <li class="list-group-item"></li> %>
     <li class="list-group-item">
       <%= queue_entry.description %>
-      <button id="thread-btn-<%= queue_entry.id %>" class="btn thread-btn btn-info" style="">
-        <%= "+#{Chat.where(queue_entry_id: queue_entry.id).length}" %>
-      </button>
+      
     </li>
   </ul>
 </div>

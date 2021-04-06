@@ -37,6 +37,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       timeSpan = $("<span />").html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
       buttsSpan = $("<span />").attr('style',"display: inline-block; float: right")
       xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').html("X")
+      $(xButton).css("margin-left", "5px")
       threadButton = $("<button />").attr('id', 'thread-btn-'+data["qe_id"]).attr('class', 'thread-btn btn btn-info').html("+0")
        
       xButton.click(function() {
@@ -50,13 +51,13 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
       $(newCard.children()[0]).append(timeSpan)
+      $(buttsSpan).append(threadButton)
       $(newCard.children()[0]).append(buttsSpan)
 
       if (data["creator"] == $('#enqueue-btn').data('session') || ($('#enqueue-btn').data('bool')  && (data["oh_user"] == $('#enqueue-btn').data('user')))) {
         $(buttsSpan).append(xButton)
       } 
       $($(newCard.children()[1]).children()[0]).html(data['desc'])
-      $($(newCard.children()[1]).children()[0]).append(threadButton)
 
       qeBox.append(newCard)
       $("#queue_entries").scrollTop(function() { return this.scrollHeight; });
@@ -69,19 +70,19 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
 
         $("#thread-tools").hide()
         chatBox = $("#chat-box")
-        $(chatBox).children().slice(2).remove();
-        $($(chatBox).children()[1]).show();
+        $(chatBox).children().slice(1).remove();
+        $($(chatBox).children()[0]).show();
+        currentQE = -1
       }
 
     } else if (data["op"] == "show_thread") {
       if (data["windowID"] != windowID) {
         return
       }
-      currentQE = data["qe"].id
 
       chatBox = $("#chat-box")
-      $(chatBox).children().slice(2).remove();
-      $($(chatBox).children()[1]).hide();
+      $(chatBox).children().slice(1).remove();
+      $($(chatBox).children()[0]).hide();
       opChat = $("<li />").attr('class', "list-group-item")
       opName = $("<span />").attr('class', 'bg-dark').attr('style', 'display: inline-block; color: white; padding: 0 5px 0 5px; margin-right: 5px').html(data["qe"].student)
       opDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(opName).append(data["qe"].description)
@@ -95,11 +96,22 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
         newChat.append(newChatDesc)
         chatBox.append(newChat)
       });
+      oldQE = currentQE
       currentQE = data["qe"].id
+      threadBtn = $('#thread-btn-'+data["qeID"])
+      oldThreadBtn = $("#thread-btn-"+oldQE)
+      $(threadBtn).removeClass("btn-info")
+      $(threadBtn).addClass("btn-warning")
+      if (oldQE != -1) {
+        $(oldThreadBtn).removeClass("btn-warning")
+        $(oldThreadBtn).addClass("btn-info")
+      }
     } else if(data["op"] == "send_msg") {
 
       threadBtn = $('#thread-btn-'+data["qeID"])
       $(threadBtn).html("+"+data["num_chats"])
+      $(threadBtn).removeClass("btn-info")
+      $(threadBtn).addClass("btn-warning")
 
       if (data["qeID"] != currentQE) {
         return;

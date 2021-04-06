@@ -26,7 +26,10 @@
 
     <% if @oh.active %>
       <div id='qe-row' class="row">
-        <div id="queue_entries" style="padding-top: .5em; margin-bottom: .5em; overflow: auto; width: 100%">
+        <ul id="wq-header" class="list-group w-100">
+          <li class="list-group-item list-group-item-secondary">Live Wait Queue</li>
+        </ul>
+        <div id="queue_entries" style="margin-bottom: .5em; overflow: auto; width: 100%">
           <% @queue_entries.each do |quentry| %>
             <%= render quentry %>
           <% end %>
@@ -34,8 +37,8 @@
       </div>
 
       <div id='enqueue-row' class="row">
-        <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
-          <label style="padding: .75rem 1.25rem; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
+        <div id="enqueue-row-inner" >
+          <label style="padding: .5rem .8rem; margin-top: -5px; margin-bottom: 0rem;">Enqueue yourself!</label><br/>
           <div id="error-box" style="color: red"></div>
           <input id="name-input" class="form-control" type="text" placeholder="Name" data-behavior="oh_enqueue" value="<%= user_signed_in? ? current_user.name : ''%>">
           <textarea id="desc-input" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Description" data-behavior="oh_enqueue"></textarea>
@@ -69,10 +72,11 @@
         <iframe class="embed-responsive-item" src= <%= url_for controller: 'zoom', action: 'show', params: {:id => @oh} %>></iframe>
       </div>
   </div>
-  <% end %>
   <div id='right-col' class="col-2" style="height: 100%">
-    <ul id="chat-box" class="list-group" style="overflow: auto;">
+    <ul class="list-group">
       <li class="list-group-item list-group-item-secondary">Conversation</li>
+    </ul>
+    <ul id="chat-box" class="list-group" style="overflow: auto;">
       <li class="list-group-item">Click on a queue entry to see the thread!</li>
     </ul>
     <div id="thread-tools" class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; display:none">
@@ -81,6 +85,8 @@
           <textarea id="desc-input-thread" class="form-control" type="text" style="display: inline-block; width: 100%" placeholder="Message"></textarea>
           <button id="submit-btn-thread" class="btn btn-primary form-control" style="margin-bottom: 2px;">Send</button>
     </div>
+
+  <% end %>
 
   </div>
 </div>
