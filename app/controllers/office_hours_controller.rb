@@ -26,6 +26,10 @@ class OfficeHoursController < ApplicationController
     if current_user.nil? && session[:displayName].nil?
       redirect_to join_office_hour_path params[:id]
       return
+    elsif current_user
+      @display_name = current_user.name
+    else
+      @display_name = session[:displayName]
     end
     id = params[:id] # retrieve movie ID from URI route
     @oh = OfficeHour.find(id) # look up movie by unique ID
