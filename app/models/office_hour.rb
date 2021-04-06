@@ -13,6 +13,23 @@ class OfficeHour < ActiveRecord::Base
   has_many :queue_entries, -> { order("start_time asc") }
   has_many :office_hour_recurrence, dependent: :destroy
 
+  def update_recurrences(active_days)
+    transaction do
+      office_hour_recurrence.destroy_all
+      active_days.each do |day|
+        office_hour_recurrence.create(day_of_week: day)
+      end
+    end
+  end
+
+  def recurrence_int_array
+    r = []
+    office_hour_recurrence.all.each do |rec|
+      r.append(rec.day_of_week)
+    end
+    r
+  end
+
   def self.with_search(search, order)
     if order.nil?
       oh = OfficeHour.all

@@ -1,18 +1,5 @@
 <h2>Edit OH</h2>
 
-<%= form_tag office_hour_path(@oh), :method => :put do %>
-  <%# TODO(etm): Host name field should be automatic based on the user that's logged in %>
-  <!-- If we want the edit form prefilled with database values, we need javascript apparently -->
-  <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'col-form-control',
-                 :value => @oh.host, :required => true %>
-  <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'col-form-control',
-                 :value => @oh.class_name, :required => true %>
-  <%= datetime_local_field :office_hour, :time, :class => 'col-form-control',
-    :value => if @oh.time then @oh.time.strftime('%Y-%m-%dT%H:%M') end, :required => true, :placeholder => "YYYY-MM-DD HH:MM PM/AM" %>
-  <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'col-form-control',
-                 :value => @oh.zoom_info, :required => true %>
-  <%= hidden_field :office_hour, :active, value: true %>
-  <br/>
-  <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
-  <%= link_to 'Cancel', office_hour_path(@oh), :class => 'btn btn-secondary' %>
+<%= form_with model: @oh, class: 'form', local: true do %>
+<%= render 'form' %>
 <% end %>
