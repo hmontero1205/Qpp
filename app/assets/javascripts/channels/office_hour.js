@@ -102,7 +102,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       oldThreadBtn = $("#thread-btn-"+oldQE)
       $(threadBtn).removeClass("btn-info")
       $(threadBtn).addClass("btn-warning")
-      if (oldQE != -1) {
+      if (oldQE != -1 && oldQE != currentQE) {
         $(oldThreadBtn).removeClass("btn-warning")
         $(oldThreadBtn).addClass("btn-info")
       }
