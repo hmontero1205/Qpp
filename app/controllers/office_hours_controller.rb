@@ -45,6 +45,7 @@ class OfficeHoursController < ApplicationController
   def join
     # Interstitial page to ask user for their name before they
     # join an OH
+    @oh = OfficeHour.find(params[:id])
     unless current_user.nil?
       redirect_to office_hour_path params[:id]
       return
