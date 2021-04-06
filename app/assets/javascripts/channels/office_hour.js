@@ -1,4 +1,4 @@
-var cardTemplate = '<div class="card border-info queue_entry"><div class="card-header bg-dark" style="color: white"></div><ul class="list-group list-group-flush"><li class="list-group-item"></li><li class="list-group-item"></li></ul></div>'
+var cardTemplate = '<div class="card border-info queue_entry"><div class="card-header bg-dark" style="color: white"></div><ul class="list-group list-group-flush"><li class="list-group-item"></li></ul></div>'
 
 function str_pad_left(string, pad, length) {
   return (new Array(length+1).join(pad)+string).slice(-length);
@@ -33,10 +33,11 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       min = Math.floor(seconds/60);
       sec = Math.floor(seconds % 60);
 
-      nameSpan = $("<span />").html(data['name'])
+      nameSpan = $("<span />").html(data['name'] + " ")
+      timeSpan = $("<span />").html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
       buttsSpan = $("<span />").attr('style',"display: inline-block; float: right")
-      xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').attr('style', 'padding: 5px 10px; margin: -5px;').html("X")
-      threadButton = $("<button />").attr('id', 'thread-btn-'+data["qe_id"]).attr('class', 'thread-btn btn btn-info').attr('style', 'padding: 5px 10px; margin: -5px 10px -5px -5px;').html("Thread")
+      xButton = $("<button />").attr('class', 'qe-btn btn btn-danger').html("X")
+      threadButton = $("<button />").attr('id', 'thread-btn-'+data["qe_id"]).attr('class', 'thread-btn btn btn-info').html("+0")
        
       xButton.click(function() {
         App.oh.speak("dequeue", {"ohID": ohID, "qeID": data["qe_id"]})
@@ -48,16 +49,17 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       })
       $(newCard).attr("id", "qe-"+data["qe_id"])
       $(newCard.children()[0]).html(nameSpan)
+      $(newCard.children()[0]).append(timeSpan)
       $(newCard.children()[0]).append(buttsSpan)
-      $(buttsSpan).append(threadButton)
 
       if (data["creator"] == $('#enqueue-btn').data('session') || ($('#enqueue-btn').data('bool')  && (data["oh_user"] == $('#enqueue-btn').data('user')))) {
         $(buttsSpan).append(xButton)
       } 
-      $($(newCard.children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
-      $($(newCard.children()[1]).children()[1]).html(data['desc'])
+      $($(newCard.children()[1]).children()[0]).html(data['desc'])
+      $($(newCard.children()[1]).children()[0]).append(threadButton)
 
       qeBox.append(newCard)
+      $("#queue_entries").scrollTop(function() { return this.scrollHeight; });
     } else if (data["op"] == "dequeue") {
       queueEntry = $("#qe-"+data["qeID"])
       if (queueEntry.length != 0) {
@@ -110,6 +112,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
       newChatDesc = $("<span />").attr('style', 'display:inline-block; word-break: break-word;').append(newChatName).append(chat.msg)
       newChat.append(newChatDesc)
       chatBox.append(newChat)
+      $("#chat-box").scrollTop(function() { return this.scrollHeight; });
 
     } else {
 
