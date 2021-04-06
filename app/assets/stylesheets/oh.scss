@@ -34,3 +34,36 @@ body {
 #name-input, #desc-input, #name-input-thread, #desc-input-thread {
   font-size: .9vw;
 }
+
+#search_form {
+  height: 100%;
+}
+
+#search-box {
+  background-color: #dee2e6;
+  padding: .25em .25em .25em .7em;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#inner-search-box {
+  width: 100%;
+}
+
+#search_search {
+  width: 60%;
+}
+
+#search-text {
+  display: inline-block;
+  margin-top: .3%;
+  width: 75%;
+}
+
+#search-btns {
+  display: inline-block;
+  float: right;
+}
