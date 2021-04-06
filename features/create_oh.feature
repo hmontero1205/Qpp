@@ -22,12 +22,14 @@ Scenario: create an office hours
   And I fill in "office_hour_starts_on" with "4:20PM"
   And I fill in "office_hour_ends_on" with "5:20PM"
   And I fill in "office_hour_zoom_info" with "https://roblox.com"
+  And I fill in "office_hour_meeting_id" with "1"
+  And I fill in "office_hour_meeting_passcode" with "1"
   And I press "Save Changes"
   Then I should be on the home page
   And I should see "Underwater Basketweaving" 
   And I should see "TA-kun"
 
-  Scenario: create a rcurring office hours
+  Scenario: create a recurring office hours
     When I go to the OH create page
     Then I should be on the log in page
     When I fill in "Email" with "ta6969@colombia.edu"
@@ -41,6 +43,8 @@ Scenario: create an office hours
     And I fill in "office_hour_starts_on" with "2021-03-01"
     And I fill in "office_hour_ends_on" with "2021-03-01"
     And I fill in "office_hour_zoom_info" with "https://roblox.com"
+    And I fill in "office_hour_meeting_id" with "1"
+    And I fill in "office_hour_meeting_passcode" with "1"
     And I check "recurrences_monday"
     And I check "recurrences_tuesday"
     And I fill in "office_hour_repeats_until" with "2021-03-09"

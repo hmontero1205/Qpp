@@ -9,8 +9,8 @@ Feature: Join an office hours session
       | 1  | ta6969@columbia.edu | memexD   |
 
     Given the following office hour exists:
-      | id | host   | class_name               | starts_on | ends_on | zoom_info    | user_id |
-      | 1  | TA-kun | Underwater Basketwelding | 5:00PM    | 6:00PM  | http://zo.om | 1       |
+      | id | host   | class_name               | starts_on | ends_on | zoom_info    | meeting_id | meeting_passcode | user_id |
+      | 1  | TA-kun | Underwater Basketwelding | 5:00PM    | 6:00PM  | http://zo.om | 1 | 1|  1       |
 
     Given the following queue entry exists:
       | id  | student     | description  | creator_id | office_hour_id |

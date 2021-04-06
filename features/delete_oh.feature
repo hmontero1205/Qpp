@@ -10,8 +10,8 @@ Feature: Create a office hours session
       | 1  | ta6969@colombia.edu | memexD   |
 
     Given the following office hour exists:
-      | id | host   | class_name               | starts_on | ends_on | zoom_info    | user_id |
-      | 1  | TA-kun | Underwater Basketwelding | 5:00PM    | 6:00PM  | http://zo.om | 1       |
+      | id | host   | class_name               | starts_on | ends_on | zoom_info    | meeting_id | meeting_passcode | user_id |
+      | 1  | TA-kun | Underwater Basketwelding | 5:00PM    | 6:00PM  | http://zo.om | 1 | 1 | 1       |
 
   Scenario: delete an office hours
     When I go to the home page
