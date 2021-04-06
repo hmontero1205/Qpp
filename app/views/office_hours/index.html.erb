@@ -30,7 +30,7 @@
         <td><%= oh.class_name %></td>
         <td><%= oh.starts_on.strftime("%m/%d/%Y %I:%M%p") %></td>
         <td>
-          <%= link_to "See more", office_hour_path(oh) %>
+          <%= link_to "See more", join_office_hour_path(oh) %>
         </td>
       </tr>
     <% end %>
