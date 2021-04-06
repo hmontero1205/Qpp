@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
 .qpp-title {
     color: white;
     text-decoration: none;

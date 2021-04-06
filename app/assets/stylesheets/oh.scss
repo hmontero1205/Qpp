@@ -1,3 +1,92 @@
 // Place all the styles related to the OH controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  height: 90vh;
+}
+
+#mainContainer {
+  height: 100%;
+}
+
+#main {
+  height: 100%;
+}
+
+.qe-btn {
+  padding: 2px 7px;
+  font-size: .9vw;
+}
+
+.thread-btn {
+  // float: right;
+  padding: 2px 7px;
+  font-size: .9vw;
+  vertical-align: top;
+  // float: right;
+}
+
+#left-col, #right-col {
+  font-size: .9vw;
+}
+
+#name-input, #desc-input, #name-input-thread, #desc-input-thread {
+  font-size: .9vw;
+}
+
+#search_form {
+  height: 100%;
+}
+
+#search-box {
+  background-color: #dee2e6;
+  padding: .25em .25em .25em .7em;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#inner-search-box {
+  width: 100%;
+}
+
+#search_search {
+  width: 60%;
+}
+
+#search-text {
+  display: inline-block;
+  margin-top: .3%;
+  width: 75%;
+}
+
+#search-btns {
+  display: inline-block;
+  float: right;
+}
+
+#enqueue-row {
+  
+}
+
+#thread-tools {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#enqueue-row-inner {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #d6d8db;
+  padding: .25em;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: -2.8%;
+}
+
+#wq-header {
+  margin-top: 5px;
+}
