@@ -1,5 +1,18 @@
 <h2>All Office Hours</h2>
-
+<div id="search-box" class="row">
+  <div id="inner-search-box">
+    <%= form_tag office_hours_path, method: :get, id: 'search_form' do %>
+    <span id='search-text'>
+      Search for TA or OH:
+      <%= text_field :search, :search, value: params[:search].nil? ? "" : params[:search][:search], :class => 'col-form-control', :required => true, :placeholder => "Host/Class Name" %>
+    </span>
+    <span id='search-btns'>
+      <%= submit_tag 'Search', id: 'search_submit', class: 'btn btn-primary index-btn ' %>
+      <%= link_to "Clear search", office_hours_path, :class => 'btn btn-primary index-btn' %>
+    </span>
+    <% end %>
+  </div>
+</div>
 <table class="table table-striped col-md-12" id="office_hours">
   <thead>
     <tr>
@@ -9,16 +22,7 @@
       <th>More Info</th>
     </tr>
   </thead>
-  <div class="row" style="padding-bottom: 15px">
-    <div class="" style="background-color: #d6d8db;padding: .25em; border-radius: 5px; width: 100%">
-    <%= form_tag office_hours_path, method: :get, id: 'search_form' do %>
-      Search for TA or OH:
-        <%= text_field :search, :search, value: params[:search].nil? ? "" : params[:search][:search], :class => 'col-form-control', :required => true %>
-    <%= submit_tag 'Search', id: 'search_submit', class: 'btn btn-primary' %>
-    <%= link_to "Clear search", office_hours_path, :class => 'btn btn-primary' %>
-    <% end %>
-    </div>
-  </div>
+  
   <tbody>
     <% @ohs.each do |oh| %>
       <tr>
@@ -26,7 +30,7 @@
         <td><%= oh.class_name %></td>
         <td><%= oh.starts_on.strftime("%m/%d/%Y %I:%M%p") %></td>
         <td>
-          <%= link_to "See more", office_hour_path(oh) %>
+          <%= link_to "See more", join_office_hour_path(oh) %>
         </td>
       </tr>
     <% end %>

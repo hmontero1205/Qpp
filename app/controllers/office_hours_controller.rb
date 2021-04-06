@@ -22,6 +22,14 @@ class OfficeHoursController < ApplicationController
   end
 
   def show
+    if current_user.nil? && session[:displayName].nil?
+      redirect_to join_office_hour_path params[:id]
+      return
+    elsif current_user
+      @display_name = current_user.name
+    else
+      @display_name = session[:displayName]
+    end
     id = params[:id] # retrieve movie ID from URI route
     @oh = OfficeHour.find(id) # look up movie by unique ID
 
@@ -31,6 +39,23 @@ class OfficeHoursController < ApplicationController
     end
     session[:id] = 42069 if Rails.env.test?
     @queue_entries = @oh.queue_entries.order(start_time: :asc)
+  end
+
+  def join
+    # Interstitial page to ask user for their name before they
+    # join an OH
+    @oh = OfficeHour.find(params[:id])
+    unless current_user.nil?
+      redirect_to office_hour_path params[:id]
+      return
+    end
+    if request.post?
+      session[:displayName] = params[:displayName]
+      redirect_to office_hour_path params[:id]
+      return
+    end
+    # Ok so it's not a form submit (post) and they aren't logged in
+    @displayName = session[:displayName] || ""
   end
 
   def destroy

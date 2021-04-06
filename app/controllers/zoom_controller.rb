@@ -45,10 +45,10 @@ class ZoomController < ApplicationController
     @api_key = ENV['ZOOM_API_KEY']
     @meeting_number = @oh.meeting_id
     @password = @oh.meeting_passcode
-    if current_user && !current_user.name.blank?
-      @username = current_user.name
+    if current_user
+      @display_name = current_user.name
     else
-      @username = "marty"
+      @display_name = session[:displayName]
     end
 
     @siggy = Zoom::SignatureGenerator.new(@meeting_number).signature

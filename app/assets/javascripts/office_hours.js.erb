@@ -5,7 +5,28 @@ function getRandomInt(max) {
 var clientID = -1
 var currentQE = -1
 
+function handleResize() {
+    totalHeight = $("#left-col").height()
+    remainingHeight = totalHeight - $("#title-row").height() - $("#details-row").height() - $("#enqueue-row").height() - $("#buttons-row").height() - $("#wq-header").height() - 50
+    $("#queue_entries").css("max-height", remainingHeight + "px")
+    console.log(totalHeight)
+
+    $("#chat-box").css("max-height", ($("#right-col").height() - $("#thread-tools").height() - 50) + "px")
+
+}
+
 $(document).ready(function() {
   windowID = getRandomInt(Number.MAX_SAFE_INTEGER)
   channelInitialize()
+
+  if (ohActive) {
+    handleResize();
+    $(window).resize(function() {
+      handleResize();
+    });
+  } else {
+    $("#main").height("initial");
+  }
+
+  
 });
