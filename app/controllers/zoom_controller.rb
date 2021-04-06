@@ -54,4 +54,9 @@ class ZoomController < ApplicationController
     @siggy = Zoom::SignatureGenerator.new(@meeting_number).signature
     render layout: false
   end
+
+  def join
+    @oh_id = params[:id]
+    render layout: false
+  end
 end

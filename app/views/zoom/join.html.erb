@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body class="h-100">
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <%= form_with url: zoom_path, local: true, method: 'get' do |form| %>
+    <%#= form_with url: url_for(controller: 'zoom', action: 'show', params: {id: @oh_id}), local: true, method: 'get' do |form| %>
+      <%= form.hidden_field  :id, value: @oh_id %>
+      <%= form.submit 'Join Zoom', class: 'btn btn-primary btn-lg' %>
+    <% end %>
+  </div>
+</div>
+</body>
+</html>
