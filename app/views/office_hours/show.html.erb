@@ -5,11 +5,13 @@
 </script>
 
 <div class="row" style="height: 100%">
-  <div id="left-col"class="col-md-2" style="height: 100%">
+  <div id="left-col"class="col-2" style="height: 100%">
+    
+    <div class="container">
     <div id="title-row" class="row">
       <h2><%= @oh.host %>'s <%= @oh.class_name %> OH</h2>
     </div>
-    <div id="details-row" class="">
+    <div id="details-row" class="row">
       <ul id="details" class="list-group" style="margin-bottom: 0em; width: 100%">
       <%# <li class="list-group-item list-group-item-secondary">Details</li> %>
         <li class="list-group-item">
@@ -59,6 +61,7 @@
       <% end %>
       <%= link_to 'Back to OH list', office_hours_path, :class => 'btn btn-primary col-md-auto' %>
     </div>
+    </div>
   </div>
   <% if @oh.active %>
   <div id="zoomCol" class="col-8">
@@ -67,7 +70,7 @@
       </div>
   </div>
   <% end %>
-  <div id='right-col' class="col-md-2" style="height: 100%">
+  <div id='right-col' class="col-2" style="height: 100%">
     <ul id="chat-box" class="list-group" style="overflow: auto;">
       <li class="list-group-item list-group-item-secondary">Conversation</li>
       <li class="list-group-item">Click on a queue entry to see the thread!</li>

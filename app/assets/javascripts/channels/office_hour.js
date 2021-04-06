@@ -97,7 +97,7 @@ App.oh = App.cable.subscriptions.create("OfficeHourChannel", {
     } else if(data["op"] == "send_msg") {
 
       threadBtn = $('#thread-btn-'+data["qeID"])
-      $(threadBtn).html("Thread (+"+data["num_chats"]+")")
+      $(threadBtn).html("(+"+data["num_chats"]+")")
 
       if (data["qeID"] != currentQE) {
         return;
@@ -178,7 +178,8 @@ function channelInitialize() {
       min = Math.floor(seconds/60);
       sec = Math.floor(seconds % 60);
 
-      $($($(this).children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
+      // $($($(this).children()[1]).children()[0]).html(str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2))
+      $($($(this).children()[0]).children()[1]).html("["+str_pad_left(min, '0', 2) + ':' + str_pad_left(sec, '0', 2) +"]")
 
     });
   }, 500);
