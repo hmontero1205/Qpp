@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   root :to => redirect('/office_hours')
   get 'zoom', to: 'zoom#show'
+  get 'zoom/join', to: 'zoom#join'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

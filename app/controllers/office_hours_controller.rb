@@ -6,7 +6,6 @@ class OfficeHoursController < ApplicationController
   INT_DAYS = {sunday: 7, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6}
 
   def index
-
     @ohs = OfficeHour.with_search(params[:search], params[:asc])
 
     @tclass = ''
@@ -75,39 +74,32 @@ class OfficeHoursController < ApplicationController
   end
 
   def new
-    @weekdays = WEEKDAYS
     @recurrences = {}
     # Empty object so the template renders properly
     @oh = OfficeHour.new
   end
 
   def create
-    @weekdays = WEEKDAYS
     @oh = current_user.office_hours.create(office_hour_params)
-    @recurrences = params['recurrences']
-    if @recurrences
-      @recurrences.each do |day, active|
-        if active == "1"
-          @oh.office_hour_recurrence.create(day_of_week: INT_DAYS[day.to_sym])
-        end
-      end
-    end
+    @recurrences = params['recurrences'] || {}
     if @oh.invalid?
       flash[:notice] = @oh.errors.full_messages.join('. ')
       render :new
       return
     end
+    @oh.update_recurrences(OfficeHourRecurrence.normalize @recurrences)
 
     flash[:notice] = "#{@oh.host}'s #{@oh.class_name} OH was successfully created."
     redirect_to office_hours_path
   end
 
   def edit
-    @oh = OfficeHour.find(params[:id])
-    if @oh.user != current_user
+    @oh = OfficeHour.find_by_id(params[:id])
+    if @oh.nil? || @oh.user != current_user
       flash[:notice] = "You cannot edit this OH since you did not create it."
       redirect_to office_hours_path
     end
+    @recurrences = OfficeHourRecurrence.de_normalize @oh.recurrence_int_array
   end
 
   def update
@@ -118,7 +110,15 @@ class OfficeHoursController < ApplicationController
       return
     end
 
+    @recurrences = params['recurrences'] || {}
     @oh.update(office_hour_params)
+    if @oh.invalid?
+      flash[:notice] = @oh.errors.full_messages.join('. ')
+      render :edit
+      return
+    end
+    @oh.update_recurrences(OfficeHourRecurrence.normalize @recurrences)
+
     flash[:notice] = "#{@oh.host}'s OH was successfully updated."
     redirect_to office_hour_path(@oh)
   end
@@ -157,4 +157,16 @@ class OfficeHoursController < ApplicationController
                                         :repeats_until, :zoom_info, :active, :meeting_id,
                                         :meeting_passcode)
   end
+
+  def normalize_weekdays(form_data)
+    # Normalize form data into a list of active days
+    active_days = []
+    form_data.each do |day, active|
+      if active == "1"
+        active_days.append INT_DAYS[day.to_sym]
+      end
+    end
+    active_days
+  end
+
 end

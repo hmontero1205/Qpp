@@ -1,0 +1,70 @@
+<%# TODO(etm): Host name field should be automatic based on the user that's logged in %>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <%= label_tag :host, "Host name" %>
+        <%= text_field :office_hour, :host, placeholder: "Host name", :class => 'form-control',
+        :value => @oh.host, :required => true, value: current_user.name %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= label_tag :host, "Class name" %>
+        <%= text_field :office_hour, :class_name, placeholder: "Class name", :class => 'form-control',
+        :value => @oh.class_name, :required => true %>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <%= label_tag :start_date, "Starts On" %>
+        <%= datetime_local_field :office_hour, :starts_on, :class => 'form-control',
+        :value => if @oh.starts_on then
+        @oh.starts_on.strftime('%Y-%m-%dT%H:%M')
+        end, :required => true, :placeholder => "YYYY-MM-DD HH:MM PM/AM" %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= label_tag :start_date, "Ends On" %>
+        <%= datetime_local_field :office_hour, :ends_on, :class => 'form-control',
+        :value => if @oh.ends_on then
+        @oh.ends_on.strftime('%Y-%m-%dT%H:%M')
+        end, :required => true, :placeholder => "YYYY-MM-DD HH:MM PM/AM" %>
+    </div>
+</div>
+<div class="form-group">
+    <%= label_tag :zoom_info, "Zoom Link" %>
+    <%= text_field :office_hour, :zoom_info, placeholder: "Zoom link", :class => 'form-control',
+    :value => @oh.zoom_info, :required => true %>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <%= label_tag :meeting_id, "Meeting ID" %>
+        <%= text_field :office_hour, :meeting_id, :class => 'form-control', :required => true,
+        :value => @oh.meeting_id, :placeholder => "ID" %>
+    </div>
+    <div class="form-group col-md-6">
+        <%= label_tag :meeting_passcode, "Meeting Passcode" %>
+        <%= text_field :office_hour, :meeting_passcode, :class => 'form-control', :required => false,
+        :value => @oh.meeting_passcode, :placeholder => "Passcode" %>
+    </div>
+</div>
+<%= hidden_field :office_hour, :active, value: false %>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <%= label_tag :repeats_until, "Repeats Until" %>
+        <%= date_field :office_hour, :repeats_until, :class => 'form-control',
+                       :value => if @oh.repeats_until then
+                                    @oh.repeats_until.strftime('%Y-%m-%d') end,
+            :placeholder => "YYYY-MM-DD"
+        %>
+    </div>
+    <div class="form-group col-md-6">
+        <div style="margin-bottom: .5rem">Repeats Weekly On</div>
+        <% OfficeHoursController::WEEKDAYS.each do |short_label, weekday| %>
+        <div class="form-check form-check-inline">
+            <%= check_box_tag "recurrences[#{weekday}]", 1, @recurrences.include?(weekday), :class => 'form-check-input' %>
+            <%= label_tag "recurrences[#{weekday}]", short_label, :class => 'form-check-label' %>
+        </div>
+        <% end %>
+    </div>
+</div>
+<div style="margin-top: 15px">
+    <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
+    <%= link_to 'Cancel', office_hours_path, :class => 'btn btn-secondary' %>
+</div>
