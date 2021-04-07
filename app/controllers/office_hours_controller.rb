@@ -157,16 +157,4 @@ class OfficeHoursController < ApplicationController
                                         :repeats_until, :zoom_info, :active, :meeting_id,
                                         :meeting_passcode)
   end
-
-  def normalize_weekdays(form_data)
-    # Normalize form data into a list of active days
-    active_days = []
-    form_data.each do |day, active|
-      if active == "1"
-        active_days.append INT_DAYS[day.to_sym]
-      end
-    end
-    active_days
-  end
-
 end
