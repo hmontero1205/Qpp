@@ -11,6 +11,14 @@ module Qpp
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    Rails.application.config.assets.precompile += %w( zoom/tools.js )
+    Rails.application.config.assets.precompile += %w( tools.js )
+    Rails.application.config.assets.precompile += %w( zoom/vconsole.min.js )
+    Rails.application.config.assets.precompile += %w( vconsole.min.js )
+    Rails.application.config.assets.precompile += %w( zoom/meeting.js )
+    Rails.application.config.assets.precompile += %w( meeting.js )
+
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
