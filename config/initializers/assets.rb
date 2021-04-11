@@ -2,8 +2,8 @@
 
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
-Rails.application.config.assets.precompile += %w( zoom/tools.js )
-Rails.application.config.assets.precompile += %w( tools.js )
+Rails.application.config.assets.precompile += %w( zoom/tool.js )
+Rails.application.config.assets.precompile += %w( tool.js )
 Rails.application.config.assets.precompile += %w( zoom/vconsole.min.js )
 Rails.application.config.assets.precompile += %w( vconsole.min.js )
 Rails.application.config.assets.precompile += %w( zoom/meeting.js )
