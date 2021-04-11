@@ -16,3 +16,4 @@
 //= require cable
 //= require channels/office_hour
 //= require office_hours
+//= require zoom
