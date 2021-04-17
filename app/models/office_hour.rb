@@ -10,7 +10,7 @@ class OfficeHour < ActiveRecord::Base
   after_validation :strip_whitespace
 
   belongs_to :user
-  has_many :queue_entries, -> { order("start_time asc") }
+  has_many :queue_entries, -> { order("start_time asc") }, dependent: :destroy
   has_many :office_hour_recurrence, dependent: :destroy
 
   def update_recurrences(active_days)
