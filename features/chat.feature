@@ -27,8 +27,10 @@ Feature: Chat while you're waiting the queue
     And office hour 1 is active
     When I go to the home page
     And I follow "See more"
+    And I fill in "displayName" with "Evan"
+    And I press "Join"
     Then I should see "Evan-senpai"
-    When I press "Thread (+1)"
+    When I press "+1"
     Then I should see "Did you try Google?"
 
   @javascript
@@ -37,9 +39,11 @@ Feature: Chat while you're waiting the queue
     And office hour 1 is active
     When I go to the home page
     And I follow "See more"
+    And I fill in "displayName" with "Evan"
+    And I press "Join"
     Then I should see "Evan-senpai"
-    When I press "Thread (+1)"
+    When I press "+1"
     Then I should see "Did you try Google?"
-    When I send a message with name "Matt" and message "that didn't help"
+    When I send the message "that didn't help"
     Then I should see "that didn't help"
-    And I should see "Thread (+2)"
+    And I should see "+2"

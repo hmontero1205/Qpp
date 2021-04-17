@@ -31,5 +31,6 @@ Feature: Create a office hours session
   Scenario: delete an office hour while not logged in
     When I go to the home page
     Then I follow "See more"
+    And I enter "Evan" as my name and join
     Then I should be on the office hour 1 page
     And I should not see "Delete"

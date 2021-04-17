@@ -36,6 +36,11 @@ Then /(.*) seed office hours should exist/ do | n_seeds |
   OfficeHour.count.should be n_seeds.to_i
 end
 
+And /^(?:|I )enter "(.*)" as my name and join/ do |name|
+  fill_in('displayName', :with => name)
+  click_button('Join')
+end
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 

@@ -5,8 +5,8 @@ Feature: Join an office hours session
 
   Background: office hour exists
     Given the following user exists:
-      | id | email               | password |
-      | 1  | ta6969@columbia.edu | memexD   |
+      | id | email               | password | name |
+      | 1  | ta6969@columbia.edu | memexD   | RobloxFiend |
 
     Given the following office hour exists:
       | id | host   | class_name               | starts_on | ends_on | zoom_info    | meeting_id | meeting_passcode | user_id |
@@ -21,6 +21,7 @@ Feature: Join an office hours session
     And office hour 1 is inactive
     When I go to the home page
     And I follow "See more"
+    And I enter "Mista Bob Dobalina" as my name and join
     Then I should see "This OH is not currently active"
     And I should be sad
 
@@ -30,8 +31,8 @@ Feature: Join an office hours session
     And office hour 1 is active
     When I go to the home page
     And I follow "See more"
+    And I enter "Curious George" as my name and join
     Then I should see "Enqueue yourself!"
-    Then I fill in "Curious George" for "Name"
     And I fill in "LET ME IN" for "Description"
     And I press "Submit"
     Then I should see "LET ME IN"
@@ -42,8 +43,8 @@ Feature: Join an office hours session
     And office hour 1 is active
     When I go to the home page
     And I follow "See more"
+    And I enter "Curious Monky" as my name and join
     Then I should see "Enqueue yourself!"
-    Then I fill in "Curious Monky" for "Name"
     And I fill in "Uhhhhhh halp" for "Description"
     And I press "Submit"
     Then I should see "Uhhhhhh halp"
@@ -56,6 +57,7 @@ Feature: Join an office hours session
     And office hour 1 is active
     When I go to the home page
     And I follow "See more"
+    And I enter "Curious Monky" as my name and join
     Then I should see "Enqueue yourself!"
     And I should see "Evan-senpai"
     And I should not see "X"
@@ -64,12 +66,12 @@ Feature: Join an office hours session
   Scenario: TA can remove users that are enqueued
     # Log in first
     Given office hour 1 is active
+    # TA name is RobloxFiend
     Given I log in with user "ta6969@columbia.edu" and password "memexD"
 
     And I go to the home page
     And I follow "See more"
     Then I should see "Enqueue yourself!"
-    And I fill in "RobloxFiend" for "Name"
     And I fill in "I am your TA" for "Description"
     And I press "Submit"
     Then I should see "RobloxFiend"
