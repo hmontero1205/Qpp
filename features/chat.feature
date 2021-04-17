@@ -32,6 +32,7 @@ Feature: Chat while you're waiting the queue
     Then I should see "Evan-senpai"
     When I press "+1"
     Then I should see "Did you try Google?"
+    And the "+1" button should be yellow
 
   @javascript
   Scenario: User contributes to an ongoing chat

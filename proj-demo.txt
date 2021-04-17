@@ -1,0 +1,9 @@
+Q++: Office hours done right.
+=============================
+Hans Montero <hjm2133@columbia.edu>
+Matthew Broughton <mb4207@columbia.edu>
+Evan Mesterhazy <etm2131@columbia.edu>
+
+Youtube Video: https://www.youtube.com/watch?v=vJwKstSpBFA
+Slides: https://docs.google.com/presentation/d/1qjBz72a3HUQdQhyjqJokF_ihIMUBofJpgY4GmoEcDPQ/edit?usp=sharing
+Deployment: https://enigmatic-shelf-31249.herokuapp.com/office_hours
