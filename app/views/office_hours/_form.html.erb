@@ -44,7 +44,7 @@
         :value => @oh.meeting_passcode, :placeholder => "Passcode" %>
     </div>
 </div>
-<%= hidden_field :office_hour, :active, value: false %>
+<%= hidden_field :office_hour, :active, value: @oh.active %>
 <div class="form-row">
     <div class="form-group col-md-6">
         <%= label_tag :repeats_until, "Repeats Until" %>

@@ -7,7 +7,7 @@ Feature: Create a office hours session
   Background: user and oh exists
     Given the following user exists:
       | id | email               | password |
-      | 1  | ta6969@colombia.edu | memexD   |
+      | 1  | ta6969@columbia.edu | memexD   |
 
     Given the following office hour exists:
       | id | host   | class_name               | starts_on | ends_on | zoom_info    | meeting_id | meeting_passcode | user_id |
@@ -16,7 +16,7 @@ Feature: Create a office hours session
   Scenario: delete an office hours
     When I go to the home page
     Then I go to the log in page
-    When I fill in "Email" with "ta6969@colombia.edu"
+    When I fill in "Email" with "ta6969@columbia.edu"
     When I fill in "Password" with "memexD"
     And I press "Log in"
 
@@ -34,3 +34,13 @@ Feature: Create a office hours session
     And I enter "Evan" as my name and join
     Then I should be on the office hour 1 page
     And I should not see "Delete"
+
+  Scenario: delete an office hour while people are enqueued
+    Given I log in with "ta6969@columbia.edu" and "memexD"
+    Then I go to the home page
+    And office hour 1 is active
+    And I follow "See more"
+    And I fill in "I'm chillin' in the queue" for "Description"
+    And I press "Submit"
+    And I follow "Delete"
+    Then I should see "successfully deleted"
