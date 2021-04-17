@@ -162,7 +162,6 @@ function channelInitialize() {
     descInput = $("#desc-input")
     ohInput = $("#oh-input")
     App.oh.speak("enqueue", {"ohID": ohInput.val(), "name": nameInput.val(), "desc": descInput.val()})
-    nameInput.val("")
     descInput.val("")
   });
 
@@ -179,7 +178,6 @@ function channelInitialize() {
     descInput = $("#desc-input-thread")
     ohInput = $("#oh-input")
     App.oh.speak("send_msg", {"ohID": ohInput.val(), "name": nameInput.val(), "msg": descInput.val(), "qeID": currentQE})
-    // nameInput.val("")
     descInput.val("")
   });
 
