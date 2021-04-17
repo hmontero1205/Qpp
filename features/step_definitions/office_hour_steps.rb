@@ -64,3 +64,10 @@ Then /I should see all office hours/ do
     # assert page.has_content?(m.title)
   end
 end
+
+Then /I log in with "(.*)" and "(.*)"/ do |usr, pwd|
+  visit path_to("the log in page")
+  fill_in('Email', :with => usr)
+  fill_in('Password', :with => pwd)
+  click_button('Log in')
+end

@@ -61,6 +61,10 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )follow the first "([^"]*)"$/ do |link|
+  first(:link, link).click
+end
+
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
 end
@@ -255,4 +259,11 @@ end
 
 Then /^show me the page$/ do
   save_and_open_page
+end
+
+# iframe helper
+When /^(.*?) inside the (.*?) frame$/ do |step_text, frame_id|
+  page.within_frame(frame_id) do
+    step step_text
+  end
 end

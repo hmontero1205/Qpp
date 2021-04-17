@@ -38,9 +38,7 @@ class ZoomController < ApplicationController
   #
   def show
     @oh_id = params[:id]
-    unless @oh_id != nil
-      raise ActionController::RoutingError.new("Missing Office Hour ID!")
-    end
+    raise ActionController::RoutingError.new("Missing Office Hour ID!") unless @oh_id != nil
     @oh = OfficeHour.find(@oh_id)
     @api_key = ENV['ZOOM_API_KEY']
     @meeting_number = @oh.meeting_id
