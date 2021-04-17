@@ -6,4 +6,8 @@
   <div class="alert alert-danger alert" role="alert" id="warning">
     <%= flash[:warning] %>
   </div>
+<% elsif flash[:alert] %>
+  <div class="alert alert-info alert" role="alert" id="warning">
+    <%= flash[:alert] %>
+  </div>
 <% end %>
