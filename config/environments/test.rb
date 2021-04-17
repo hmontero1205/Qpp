@@ -57,6 +57,6 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
-  ENV['ZOOM_API_KEY'] = ' '
-  ENV['ZOOM_API_SECRET'] = ' '
+  ENV['ZOOM_API_KEY'] = ''
+  ENV['ZOOM_API_SECRET'] = ''
 end

@@ -24,6 +24,12 @@ Please also install geckodriver, as it is needed for our cucumber tests.  e.g.
 `brew install geckodriver` on MacOS or see
 [this](https://github.com/mozilla/geckodriver/releases).
 
+The Zoom API requires two environment variables to be set: `ZOOM_API_KEY` and
+`ZOOM_API_SECRET`. You can load these variables into the dev environment by
+setting them in `config/dev_env_vars.rb`, which you will have to create since
+it is ignored by git. Otherwise, the dev config automatically sets these
+variables to the empty string if they are unset in the environment.
+
 Main Features
 -------------
 Here's a list of the main features Q++ offers as of now!

@@ -80,8 +80,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Required environment variables for Zoom
-  ENV['ZOOM_API_KEY'] = ' '
-  ENV['ZOOM_API_SECRET'] = ' '
+  ENV['ZOOM_API_KEY'] = ENV['ZOOM_API_KEY'] || ''
+  ENV['ZOOM_API_SECRET'] = ENV['ZOOM_API_KEY'] || ''
   vars = File.join Rails.root, 'config', 'dev_env_vars.rb'
   load vars if File.exists? vars
 end
