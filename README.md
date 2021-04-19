@@ -7,7 +7,8 @@ Evan Mesterhazy \<etm2131@columbia.edu>
 [Heroku Deployment](https://enigmatic-shelf-31249.herokuapp.com)
 
 [Iteration 1 Release](https://github.com/hmontero1205/Qpp/releases/tag/v1.0)  
-[Iteration 2 Release](https://github.com/hmontero1205/Qpp/releases/tag/v2.0)
+[Iteration 2 Release](https://github.com/hmontero1205/Qpp/releases/tag/v2.0)  
+[Final Release](https://github.com/hmontero1205/Qpp/releases/tag/v3.0)
 
 Code Coverage: 💯%
 
@@ -32,9 +33,9 @@ variables to the empty string if they are unset in the environment.
 
 Main Features
 -------------
-Here's a list of the main features Q++ offers as of now!
+Here's a list of the features Q++ offers!
 - Clean and usable interface for creating, listing, and searching office hours.
-  - Basic support for creating weekly recurring office hour events
+  - Support for creating weekly recurring office hour events
   - Enhanced search functionality for finding OH sessions
 - TA login portal for OH management
 - Enable/disable OH
@@ -48,12 +49,13 @@ Here's a list of the main features Q++ offers as of now!
   - Follow up on queue entries with your own advice
   - Solve other people's problems if you know the answer
   - Save other people time, too!
+- Zoom integration
+  - Meeting embedded directly onto OH page
 
 Future Features
 ---------------
-- Zoom integration! Instead of only offering a Zoom link on a page, embed a Zoom meeting directly onto the OH page. This will make for a one-tab experience for OH.
 - Add support for markdown in the chat
-- Advanced OH management: recurring meetings
+- Create Zoom meetings directly on Q++
 
 Walkthrough
 -----------
@@ -91,9 +93,29 @@ run all migrations (via `rails db:migrate`).
    also delete an OH session or update OH attributes.
 
 ### Chat
-1. Once you have an OH session going with some queue entries, click the "Thread" button.
-2. On the side, you should see a chatbox open up. This is where the per-student conversation happens!
-3. Either as a TA or a student, send a message. The chatbox will update to include your message.
-4. If you have any other tabs open, you'll see that the chat show up if you had the thread open.
-5. The OH view will update even if you don't have the specific chatbox open. Next to every queue entry, you'll see the message count in each thread update as new messages come in. This allows anyone to stay updated on the conversation!
-6. Threads are deleted once the queue entry is deleted. In the future, we'll add some sort of archive feature so students joining OH late can see what past questions were.
+1. Once you have an OH session going with some queue entries, click the "Thread"
+   button.
+2. On the side, you should see a chatbox open up. This is where the per-student
+   conversation happens!
+3. Either as a TA or a student, send a message. The chatbox will update to
+   include your message.
+4. If you have any other tabs open, you'll see that the chat show up if you had
+   the thread open.
+5. The OH view will update even if you don't have the specific chatbox open.
+   Next to every queue entry, you'll see the message count in each thread update
+   as new messages come in. This allows anyone to stay updated on the
+   conversation!
+6. Threads are deleted once the queue entry is deleted. In the future, we'll add
+   some sort of archive feature so students joining OH late can see what past
+   questions were.
+
+### Zoom
+1. The Zoom widget will not start until you activate the OH session.
+2. Once the OH is activated, the Zoom meeting will immediately start
+3. You might be prompted to log in – follow the link to sign into a Zoom
+   account.
+4. You cannot use a Columbia Zoom account because it does not allow for logins
+   into third-party API apps. You'll have to create a non-Columbia affiliated
+   Zoom account to use Q++ (for now!)
+5. After logging in, you'll officially be part of the Zoom call and be able to
+   turn on video, audio, and screenshare.
